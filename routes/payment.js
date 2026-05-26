@@ -5,7 +5,7 @@ const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
-// 💡 पाथ एरर से बचने के लिए सीधे mongoose से रजिस्टर्ड 'User' मॉडल को उठाना सबसे सेफ तरीका है
+// पाथ एरर से बचने के लिए सीधे mongoose से रजिस्टर्ड 'User' MD Model को उठाना
 const User = mongoose.model('User'); 
 
 // Razorpay इनिशियलाइज करें (Render के Environment Variables से कीज उठाएगा)
@@ -21,7 +21,8 @@ router.post('/order', async (req, res) => {
     const options = {
       amount: amount * 100, // ₹999 को पैसे में बदलने के लिए
       currency: "INR",
-      receipt: `receipt_user_${userId}_${Date.now()}`,
+      // 💡 फिक्स: रसीद की लंबाई 40 कैरेक्टर से कम रखने के लिए इसे छोटा किया गया है
+      receipt: `rcpt_${Date.now()}`, 
     };
 
     const order = await razorpay.orders.create(options);

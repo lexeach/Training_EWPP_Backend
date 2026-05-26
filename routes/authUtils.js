@@ -1,7 +1,6 @@
 // backend/routes/authUtils.js
 const express = require('express');
 const router = express.Router();
-const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const { google } = require('googleapis');
@@ -10,7 +9,6 @@ const User = mongoose.models.User || mongoose.models.user || mongoose.model('Use
 const otpCache = new Map();
 
 // 🚀 Google OAuth2 Client Setup
-console.log("[INIT] Google OAuth2 Client initialize ho raha hai...");
 const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
   process.env.OAUTH_CLIENT_ID,
@@ -21,49 +19,44 @@ const oauth2Client = new OAuth2(
 oauth2Client.setCredentials({
   refresh_token: process.env.OAUTH_REFRESH_TOKEN
 });
-console.log("[INIT] OAuth2 Client credentials set kar diye gaye hain.");
 
-// Dynamic Transporter with heavy logging
-async function createTransporter() {
-  console.log("[OAUTH2] createTransporter() function call hua.");
+// 📧 Nodemailer हटाकर सीधे Gmail API से HTTP के ज़रिए मेल भेजने का फंक्शन
+async function sendGmailViaAPI(toEmail, subject, htmlBody) {
+  console.log("[GMAIL API] sendGmailViaAPI() call hua. Mail bhejne ki taiyari...");
   try {
-    console.log("[OAUTH2] Google se naya Access Token maanga ja raha hai...");
-    
-    // 💡 यहाँ टाइमआउट हैंडलर लगा रहे हैं ताकि अगर गूगल रिस्पॉन्ड न करे तो कोड अनंत काल तक न अटका रहे
-    const accessToken = await new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error("Google OAuth API ne token dene me bohot time lagaya (Timeout)")), 8000);
-      
-      oauth2Client.getAccessToken((err, token) => {
-        clearTimeout(timeout);
-        if (err) {
-          console.error("[OAUTH2 ERROR] Google se token lene me gaddbadd:", err);
-          reject(err);
-        }
-        resolve(token);
-      });
-    });
+    const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
-    console.log("[OAUTH2 SUCCESS] Fresh Access Token mil gaya hai!");
+    // ईमेल का सही फॉर्मेट (MIME) तैयार करना
+    const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+    const messageParts = [
+      `From: ${process.env.EMAIL_USER}`,
+      `To: ${toEmail}`,
+      `Content-Type: text/html; charset=utf-8`,
+      `MIME-Version: 1.0`,
+      `Subject: ${utf8Subject}`,
+      ``,
+      htmlBody
+    ];
+    const message = messageParts.join('\n');
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: process.env.EMAIL_USER,
-        clientId: process.env.OAUTH_CLIENT_ID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-        accessToken: accessToken
+    // बेस64 सेफ यूआरएल एनकोडिंग (Gmail API की जरूरत)
+    const encodedMessage = Buffer.from(message)
+      .toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+
+    console.log("[GMAIL API] HTTP Request sent to Google...");
+    const res = await gmail.users.messages.send({
+      userId: 'me',
+      requestBody: {
+        raw: encodedMessage,
       },
-      tls: {
-        rejectUnauthorized: false
-      }
     });
-
-    console.log("[OAUTH2] Nodemailer Transporter object successfully taiyar.");
-    return transporter;
+    console.log("[GMAIL API SUCCESS] Mail sent successfully! ID:", res.data.id);
+    return res.data;
   } catch (error) {
-    console.error("[CRITICAL OAUTH2 ERROR] Transporter creation fail hua:", error.message);
+    console.error("[GMAIL API CRITICAL ERROR] API se mail nahi gayi:", error.message);
     throw error;
   }
 }
@@ -71,89 +64,52 @@ async function createTransporter() {
 // 🎯 1. साइनअप के लिए OTP भेजना
 router.post('/send-signup-otp', async (req, res) => {
   const { email } = req.body;
-  console.log(`\n--- [ROUTE START] /send-signup-otp for Email: ${email} ---`);
+  console.log(`\n--- [ROUTE START] /send-signup-otp for ${email} ---`);
   try {
-    console.log("[STEP 1] Database me check kar rahe hain ki user pehle se hai ya nahi...");
     const userExists = await User.findOne({ email });
-    console.log("[STEP 1 SUCCESS] Database check complete. User exists?", !!userExists);
-    
-    if (userExists) {
-      return res.status(400).json({ success: false, message: "ईमेल पहले से रजिस्टर्ड है।" });
-    }
+    if (userExists) return res.status(400).json({ success: false, message: "ईमेल पहले से रजिस्टर्ड है।" });
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpCache.set(email, { otp, expires: Date.now() + 10 * 60 * 1000 });
-    console.log(`[STEP 2] Cache me OTP save kiya: ${otp}`);
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'EWPP Portal - ईमेल वेरिफिकेशन OTP',
-      html: `<h3>EWPP ट्रेनिंग पोर्टल में आपका स्वागत है</h3>
-             <p>साइनअप पूरा करने के लिए आपका OTP नीचे दिया गया है:</p>
-             <h2 style="color: #0284c7; letter-spacing: 2px;">${otp}</h2>`
-    };
+    const subject = 'EWPP Portal - ईमेल वेरिफिकेशन OTP';
+    const htmlBody = `<h3>EWPP ट्रेनिंग पोर्टल में आपका स्वागत है</h3>
+                      <p>साइनअप पूरा करने के लिए आपका OTP नीचे दिया गया है:</p>
+                      <h2 style="color: #0284c7; letter-spacing: 2px;">${otp}</h2>`;
 
-    console.log("[STEP 3] createTransporter() ko call kar rahe hain...");
-    const sendEmailTransporter = await createTransporter();
-    
-    console.log("[STEP 4] sendMail() trigger kar rahe hain. Mail ja rahi hai...");
-    await sendEmailTransporter.sendMail(mailOptions);
-    console.log("[STEP 4 SUCCESS] Mail successfully sent without timeout!");
+    // 🚀 Nodemailer की जगह नया API फंक्शन कॉल
+    await sendGmailViaAPI(email, subject, htmlBody);
     
     res.status(200).json({ success: true, message: 'OTP ईमेल पर भेज दिया गया है।' });
   } catch (error) {
-    console.error("[ROUTE ERROR] /send-signup-otp me gaddbadd aayi:", error.message);
     res.status(500).json({ success: false, message: 'ईमेल भेजने में सर्वर एरर: ' + error.message });
-  } finally {
-    console.log(`--- [ROUTE END] /send-signup-otp process khatam ---\n`);
   }
 });
 
 // 🎯 2. Forgot Password
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
-  console.log(`\n--- [ROUTE START] /forgot-password for Email: ${email} ---`);
+  console.log(`\n--- [ROUTE START] /forgot-password for ${email} ---`);
   try {
-    console.log("[STEP 1] Database me user search kar rahe hain...");
     const user = await User.findOne({ email });
-    console.log("[STEP 1 SUCCESS] User search complete. User found?", !!user);
-    
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'यह ईमेल हमारे रिकॉर्ड में नहीं है।' });
-    }
+    if (!user) return res.status(404).json({ success: false, message: 'यह ईमेल हमारे रिकॉर्ड में नहीं है।' });
 
     const resetToken = crypto.randomBytes(20).toString('hex');
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = Date.now() + 30 * 60 * 1000; 
-    
-    console.log("[STEP 2] Database me token save karne ja rahe hain...");
     await user.save();
-    console.log("[STEP 2 SUCCESS] Token DB me successfully save ho gaya.");
 
     const resetUrl = `https://training-ewpp-frontend.onrender.com/reset-password/${resetToken}`;
+    const subject = 'EWPP Portal - पासवर्ड रीसेट रिक्वेस्ट';
+    const htmlBody = `<p>आपने पासवर्ड रीसेट करने का अनुरोध किया है। नीचे दिए गए लिंक पर क्लिक करके अपना पासवर्ड बदलें:</p>
+                      <a href="${resetUrl}" style="background:#0284c7; color:#fff; padding:10px 20px; text-decoration:none; border-radius:4px; display:inline-block;">पासवर्ड रीसेट करें</a>`;
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'EWPP Portal - पासवर्ड रीसेट रिक्वेस्ट',
-      html: `<p>आपने पासवर्ड रीसेट करने का अनुरोध किया है। नीचे दिए गए लिंक पर क्लिक करके अपना पासवर्ड बदलें:</p>
-             <a href="${resetUrl}" style="background:#0284c7; color:#fff; padding:10px 20px; text-decoration:none; border-radius:4px; display:inline-block;">पासवर्ड रीसेट करें</a>`
-    };
-
-    console.log("[STEP 3] createTransporter() ko call kar rahe hain...");
-    const sendEmailTransporter = await createTransporter();
-    
-    console.log("[STEP 4] sendMail() trigger kar rahe hain. Reset link ja raha hai...");
-    await sendEmailTransporter.sendMail(mailOptions);
-    console.log("[STEP 4 SUCCESS] Reset Mail successfully sent!");
+    // 🚀 Nodemailer की जगह नया API फंक्शन कॉल
+    await sendGmailViaAPI(email, subject, htmlBody);
 
     res.status(200).json({ success: true, message: 'पासवर्ड रीसेट लिंक आपकी ईमेल पर भेज दिया गया है।' });
   } catch (error) {
-    console.error("[ROUTE ERROR] /forgot-password me gaddbadd aayi:", error.message);
     res.status(500).json({ success: false, message: 'सर्वर एरर: ' + error.message });
-  } finally {
-    console.log(`--- [ROUTE END] /forgot-password process khatam ---\n`);
   }
 });
 

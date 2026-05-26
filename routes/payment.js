@@ -13,7 +13,7 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// 🎯 फ्रंटएंड को Key ID देने के लिए एंडपॉइंट (ताकि फ्रंटएंड में गलत की डलने का चांस खत्म हो जाए)
+// 🎯 फ्रंटएंड को Key ID देने के लिए एंडपॉइंट
 router.get('/key', (req, res) => {
   res.status(200).json({ key: process.env.RAZORPAY_KEY_ID });
 });
@@ -22,10 +22,18 @@ router.get('/key', (req, res) => {
 router.post('/order', async (req, res) => {
   const { amount, userId } = req.body;
   try {
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required to create an order" });
+    }
+
     const options = {
       amount: amount * 100, 
       currency: "INR",
       receipt: `rcpt_${Date.now()}`, 
+      // 💡 सुधार:userId को रेजरपे के 'notes' में डालो ताकि वेरिफिकेशन के समय यह मिल सके
+      notes: {
+        userId: userId.toString()
+      }
     };
 
     const order = await razorpay.orders.create(options);
@@ -42,22 +50,46 @@ router.post('/order', async (req, res) => {
 router.post('/verify', async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId } = req.body;
   try {
-    // सिग्नेचर वेरीफाई करना
+    // 1. सिग्नेचर वेरीफाई करना
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
       .update(sign.toString())
       .digest("hex");
 
     if (expectedSign === razorpay_signature) {
-      // 💡 अपडेट: बिना रिलेटिव पाथ की एरर के सीधे डेटाबेस में यूजर को अपडेट करना
+      
+      // 💡 बैकअप प्लान: अगर फ्रंटएंड से userId नहीं आया, तो रेजरपे के ऑर्डर से निकालो
+      let finalUserId = userId;
+      
+      if (!finalUserId) {
+        console.log("[BACKEND] req.body में userId नहीं मिला, Razorpay से ऑर्डर फेच किया जा रहा है...");
+        const orderDetails = await razorpay.orders.fetch(razorpay_order_id);
+        finalUserId = orderDetails?.notes?.userId;
+      }
+
+      if (!finalUserId) {
+        console.error("[BACKEND ERROR] किसी भी तरीके से userId नहीं मिल पाया!");
+        return res.status(400).json({ success: false, message: "User Identification Failed" });
+      }
+
+      console.log(`[BACKEND] User ${finalUserId} को डेटाबेस में Paid मार्क किया जा रहा है...`);
+
+      // 💡 100% डेटाबेस अपडेट की गारंटी
       const updatedUser = await User.findByIdAndUpdate(
-        userId,
+        finalUserId,
         { isPaid: true },
-        { new: true }
+        { new: true } // ताकि रिस्पॉन्स में अपडेटेड यूजर मिले
       );
       
+      if (!updatedUser) {
+        console.error(`[BACKEND ERROR] User ID: ${finalUserId} डेटाबेस में मिला ही नहीं!`);
+        return res.status(404).json({ success: false, message: "User not found in database" });
+      }
+
+      console.log(`[BACKEND SUCCESS] डेटाबेस अपडेट हो गया! isPaid state:`, updatedUser.isPaid);
       return res.status(200).json({ success: true, message: "Paid Successfully", user: updatedUser });
+      
     } else {
       console.log("Signature Mismatch!");
       return res.status(400).json({ success: false, message: "Invalid Signature Match" });

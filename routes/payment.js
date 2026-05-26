@@ -5,13 +5,17 @@ const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
-// पाथ एरर से बचने के लिए सीधे mongoose से रजिस्टर्ड 'User' MD Model को उठाना
+// सीधे मोंगूज से रजिस्टर्ड मॉडल को उठाना
 const User = mongoose.model('User'); 
 
-// Razorpay इनिशियलाइज करें (Render के Environment Variables से कीज उठाएगा)
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
+// 🎯 फ्रंटएंड को Key ID देने के लिए एंडपॉइंट (ताकि फ्रंटएंड में गलत की डलने का चांस खत्म हो जाए)
+router.get('/key', (req, res) => {
+  res.status(200).json({ key: process.env.RAZORPAY_KEY_ID });
 });
 
 // 🎯 1. ऑर्डर क्रिएट करने का एंडपॉइंट
@@ -19,9 +23,8 @@ router.post('/order', async (req, res) => {
   const { amount, userId } = req.body;
   try {
     const options = {
-      amount: amount * 100, // ₹999 को पैसे में बदलने के लिए
+      amount: amount * 100, 
       currency: "INR",
-      // 💡 फिक्स: रसीद की लंबाई 40 कैरेक्टर से कम रखने के लिए इसे छोटा किया गया है
       receipt: `rcpt_${Date.now()}`, 
     };
 
@@ -30,7 +33,7 @@ router.post('/order', async (req, res) => {
 
     res.status(200).json(order);
   } catch (error) {
-    console.error(error);
+    console.error("Order Creation Error:", error);
     res.status(500).json({ message: "Server Error during order generation" });
   }
 });
@@ -39,6 +42,7 @@ router.post('/order', async (req, res) => {
 router.post('/verify', async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId } = req.body;
   try {
+    // सिग्नेचर वेरीफाई करना
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -46,18 +50,20 @@ router.post('/verify', async (req, res) => {
       .digest("hex");
 
     if (expectedSign === razorpay_signature) {
-      // डेटाबेस में यूजर को 'isPaid: true' मार्क करें
+      // 💡 अपडेट: बिना रिलेटिव पाथ की एरर के सीधे डेटाबेस में यूजर को अपडेट करना
       const updatedUser = await User.findByIdAndUpdate(
         userId,
         { isPaid: true },
         { new: true }
       );
-      return res.status(200).json({ success: true, user: updatedUser });
+      
+      return res.status(200).json({ success: true, message: "Paid Successfully", user: updatedUser });
     } else {
-      return res.status(400).json({ success: false, message: "Invalid Signature" });
+      console.log("Signature Mismatch!");
+      return res.status(400).json({ success: false, message: "Invalid Signature Match" });
     }
   } catch (error) {
-    console.error(error);
+    console.error("Verification Catch Error:", error);
     res.status(500).json({ success: false, message: "Verification Server Error" });
   }
 });

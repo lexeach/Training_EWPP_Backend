@@ -99,7 +99,9 @@ router.post('/forgot-password', async (req, res) => {
     user.resetPasswordExpires = Date.now() + 30 * 60 * 1000; 
     await user.save();
 
-    const resetUrl = `https://training-ewpp-frontend.onrender.com/reset-password/${resetToken}`;
+    // 🎯 2. Forgot Password (backend/routes/authUtils.js के अंदर ढूंढें)
+// पुरानी resetUrl लाइन को हटाकर इसे लिखें:
+    const resetUrl = `https://training-ewpp-frontend.onrender.com/?resetToken=${resetToken}`;
     const subject = 'EWPP Portal - पासवर्ड रीसेट रिक्वेस्ट';
     const htmlBody = `<p>आपने पासवर्ड रीसेट करने का अनुरोध किया है। नीचे दिए गए लिंक पर क्लिक करके अपना पासवर्ड बदलें:</p>
                       <a href="${resetUrl}" style="background:#0284c7; color:#fff; padding:10px 20px; text-decoration:none; border-radius:4px; display:inline-block;">पासवर्ड रीसेट करें</a>`;

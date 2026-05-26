@@ -14,18 +14,14 @@ const otpCache = new Map();
 // backend/routes/authUtils.js - Transporter Update
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465, // 💡 पोर्ट 465 सीधे SSL कनेक्शन के लिए सबसे बेस्ट है
-  secure: true, // पोर्ट 465 के लिए true होना ज़रूरी है
+  service: 'gmail',
   auth: {
+    type: 'OAuth2',
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    // 💡 यह रेंडर सर्वर पर आ रहे टाइमआउट और अनधिकृत सर्टिफिकेट एरर्स को रोकता है
-    rejectUnauthorized: false
-  },
-  connectionTimeout: 10000 // 10 सेकंड का टाइमआउट लिमिट
+    clientId: process.env.OAUTH_CLIENT_ID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN
+  }
 });
 
 // 🎯 1. साइनअप के लिए OTP भेजना

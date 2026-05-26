@@ -25,6 +25,9 @@ const UserSchema = new mongoose.Schema({
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
   
+  // 💡 मास्टर फिक्स: मोंगूज को बताएं कि 'isPaid' एक वैलिड फ़ील्ड है और डिफ़ॉल्ट रूप से false रहेगा
+  isPaid: { type: Boolean, default: false },
+  
   // प्रोग्रेस ट्रैकिंग: यूजर ने कौन-कौन से वीडियो देख लिए हैं, उनकी IDs यहाँ सेव होंगी
   completedVideos: [{ type: String }], 
   

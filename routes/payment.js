@@ -3,7 +3,10 @@ const express = require('express');
 const router = express.Router();
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-const User = require('../models/User'); // ध्यान दें: यह आपके User मॉडल का सही पाथ होना चाहिए
+const mongoose = require('mongoose');
+
+// 💡 पाथ एरर से बचने के लिए सीधे mongoose से रजिस्टर्ड 'User' मॉडल को उठाना सबसे सेफ तरीका है
+const User = mongoose.model('User'); 
 
 // Razorpay इनिशियलाइज करें (Render के Environment Variables से कीज उठाएगा)
 const razorpay = new Razorpay({

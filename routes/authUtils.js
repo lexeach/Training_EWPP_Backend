@@ -126,20 +126,39 @@ router.post('/verify-signup-otp', (req, res) => {
 });
 
 // 🎯 4. Reset Password Action
+// 🎯 4. Reset Password Action (backend/routes/authUtils.js के सबसे नीचे)
+const bcrypt = require('bcryptjs'); // या require('bcrypt'); जो भी आपके प्रोजेक्ट में पहले से इंस्टॉल हो
+
 router.post('/reset-password/:token', async (req, res) => {
   const { password } = req.body;
+  console.log("[RESET ACTION] Naya password update karne ki request aayi hai...");
+  
   try {
     const user = await User.findOne({
       resetPasswordToken: req.params.token,
       resetPasswordExpires: { $gt: Date.now() }
     });
-    if (!user) return res.status(400).json({ success: false, message: 'टोकन अमान्य है या एक्सपायर हो चुका है।' });
-    user.password = password; 
+
+    if (!user) {
+      console.log("[RESET ACTION FAIL] Token invalid ya expire ho chuka hai.");
+      return res.status(400).json({ success: false, message: 'टोकन अमान्य है या एक्सपायर हो चुका है।' });
+    }
+
+    // 🚀 गड़बड़ यहीं थी! पासवर्ड को डेटाबेस में सेव करने से पहले हैश करना ज़रूरी है
+    console.log("[RESET ACTION] Passwords ko encrypt/hash kiya ja raha hai...");
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt); 
+    
+    // टोकन का काम खत्म, इन्हें हटा दें
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
+    
     await user.save();
+    console.log("[RESET ACTION SUCCESS] DB me encrypted password successfully save ho gaya!");
+
     res.status(200).json({ success: true, message: 'पासवर्ड सफलतापूर्वक बदल गया है!' });
   } catch (error) {
+    console.error("[RESET ACTION ERROR] Password badalne me error:", error.message);
     res.status(500).json({ success: false, message: 'पासवर्ड बदलने में एरर।' });
   }
 });

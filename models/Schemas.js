@@ -22,6 +22,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }, // हैश किया हुआ पासवर्ड
   role: { type: String, default: 'channel_partner' },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
   
   // प्रोग्रेस ट्रैकिंग: यूजर ने कौन-कौन से वीडियो देख लिए हैं, उनकी IDs यहाँ सेव होंगी
   completedVideos: [{ type: String }], 

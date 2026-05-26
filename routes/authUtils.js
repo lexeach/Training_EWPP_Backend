@@ -162,5 +162,18 @@ router.post('/reset-password/:token', async (req, res) => {
     res.status(500).json({ success: false, message: 'पासवर्ड बदलने में एरर।' });
   }
 });
-
+// 🎯 5. लाइव पेमेंट स्टेटस/प्रोफाइल चेक करने का राउट (authUtils.js के अंदर सबसे नीचे module.exports से पहले जोड़ें)
+router.post('/get-profile', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'यूजर नहीं मिला' });
+    }
+    // पूरा यूजर ऑब्जेक्ट भेजें जिसमें ताज़ा isPaid: true हो
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
 module.exports = router;

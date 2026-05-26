@@ -4,6 +4,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const apiRoutes = require('./routes/apiRoutes');
+const paymentRoutes = require('./routes/payment');
+
 
 // पर्यावरण वेरिएबल्स (.env) लोड करना
 dotenv.config();
@@ -19,6 +21,11 @@ app.use(express.json()); // JSON डेटा रीड करने के ल�
 
 // Base API Route
 app.use('/api', apiRoutes);
+
+// राउट को इम्पोर्ट करने के लिए (बाकी imports के साथ ऊपर जोड़ें)
+
+// राउट को यूज़ करने के लिए (जहाँ app.use('/api/auth', ...) लिखा है, उसके ठीक नीचे जोड़ें)
+app.use('/api/payment', paymentRoutes);
 
 // Test Route
 app.get('/', (req, res) => {

@@ -85,5 +85,8 @@ const seedDatabase = async () => {
     process.exit(1);
   }
 };
-
-seedDatabase();
+// seedDatabase(); को हटाकर या कमेंट करके यह लिखें:
+if (process.argv[2] === '--run') {
+    seedDatabase();
+}
+//seedDatabase();

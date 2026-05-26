@@ -4,27 +4,60 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+const { google } = require('googleapis');
 
-// 💡 सेफ्टी चेक: मॉडल का नाम 'User' या 'user' दोनों में से जो भी रजिस्टर हो, सही से मिल जाए
 const User = mongoose.models.User || mongoose.models.user || mongoose.model('User');
-
 const otpCache = new Map();
 
-// Nodemailer ट्रांसपोर्टर सेटअप
-// backend/routes/authUtils.js - Transporter Update
+// 🚀 Google OAuth2 Client Setup
+const OAuth2 = google.auth.OAuth2;
+const oauth2Client = new OAuth2(
+  process.env.OAUTH_CLIENT_ID,
+  process.env.OAUTH_CLIENT_SECRET,
+  "https://developers.google.com/oauthplayground" // Redirect URI
+);
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    type: 'OAuth2',
-    user: process.env.EMAIL_USER,
-    clientId: process.env.OAUTH_CLIENT_ID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN
-  }
+oauth2Client.setCredentials({
+  refresh_token: process.env.OAUTH_REFRESH_TOKEN
 });
 
-// 🎯 1. साइनअप के लिए OTP भेजना
+// Mail Transporter generate karne ka dynamic function (Jo Timeout nahi hone dega)
+async function createTransporter() {
+  try {
+    // Refresh token se fresh access token nikalna
+    const accessToken = await new Promise((resolve, reject) => {
+      oauth2Client.getAccessToken((err, token) => {
+        if (err) {
+          reject("Failed to create access token :(");
+        }
+        resolve(token);
+      });
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: process.env.EMAIL_USER,
+        clientId: process.env.OAUTH_CLIENT_ID,
+        clientSecret: process.env.OAUTH_CLIENT_SECRET,
+        refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+        accessToken: accessToken
+      },
+      // Render network timeouts ko bypass karne ke liye important settings
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+
+    return transporter;
+  } catch (error) {
+    console.error("Transporter Creation Error:", error);
+    throw error;
+  }
+}
+
+// 🎯 1. Signup ke liye OTP bhejna
 router.post('/send-signup-otp', async (req, res) => {
   const { email } = req.body;
   try {
@@ -43,15 +76,17 @@ router.post('/send-signup-otp', async (req, res) => {
              <h2 style="color: #0284c7; letter-spacing: 2px;">${otp}</h2>`
     };
 
-    await transporter.sendMail(mailOptions);
+    const sendEmailTransporter = await createTransporter();
+    await sendEmailTransporter.sendMail(mailOptions);
+    
     res.status(200).json({ success: true, message: 'OTP ईमेल पर भेज दिया गया है।' });
   } catch (error) {
-    console.error("OTP Send Error:", error);
-    res.status(500).json({ success: false, message: 'ईमेल भेजने में सर्ver एरर: ' + error.message });
+    console.error("OAuth2 Signup OTP Error:", error);
+    res.status(500).json({ success: false, message: 'ईमेल भेजने में सर्वर एरर: ' + error.message });
   }
 });
 
-// 🎯 2. साइनअप OTP वेरीफाई करना
+// 🎯 2. Signup OTP verify karna
 router.post('/verify-signup-otp', (req, res) => {
   const { email, otp } = req.body;
   const data = otpCache.get(email);
@@ -85,10 +120,12 @@ router.post('/forgot-password', async (req, res) => {
              <a href="${resetUrl}" style="background:#0284c7; color:#fff; padding:10px 20px; text-decoration:none; border-radius:4px; display:inline-block;">पासवर्ड रीसेट करें</a>`
     };
 
-    await transporter.sendMail(mailOptions);
+    const sendEmailTransporter = await createTransporter();
+    await sendEmailTransporter.sendMail(mailOptions);
+
     res.status(200).json({ success: true, message: 'पासवर्ड रीसेट लिंक आपकी ईमेल पर भेज दिया गया है।' });
   } catch (error) {
-    console.error("Forgot Password Error:", error);
+    console.error("OAuth2 Forgot Password Error:", error);
     res.status(500).json({ success: false, message: 'सर्वर एरर: ' + error.message });
   }
 });
@@ -104,16 +141,14 @@ router.post('/reset-password/:token', async (req, res) => {
 
     if (!user) return res.status(400).json({ success: false, message: 'टोकन अमान्य है या एक्सपायर हो चुका है।' });
 
-    // 💡 मोंगूज स्कीमा में जो भी पुराना सेव करने का तरीका है, उसके अनुकूल डायरेक्ट असाइनमेंट
     user.password = password; 
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    res.status(200).json({ success: true, message: 'पासवर्ड सफलतापूर्वक बदल गया है! अब आप लॉगिन कर सकते।' });
+    res.status(200).json({ success: true, message: 'पासवर्ड सफलतापूर्वक बदल गया है!' });
   } catch (error) {
-    console.error("Reset Password Error:", error);
-    res.status(500).json({ success: false, message: 'पासवर्ड बदलने में एरर: ' + error.message });
+    res.status(500).json({ success: false, message: 'पासवर्ड बदलने में एरर।' });
   }
 });
 

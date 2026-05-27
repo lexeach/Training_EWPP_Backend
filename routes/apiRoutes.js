@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/Schemas');
-const { registerUser, loginUser } = require('../controllers/authController');
+const { registerUser, loginUser, manualApproveUser } = require('../controllers/authController');
 const { getModules, updateProgress } = require('../controllers/trainingController');
 
 // --- AUTH MIDDLEWARE (टोकन वेरीफाई करने के लिए) ---
@@ -27,6 +27,7 @@ const protect = async (req, res, next) => {
 // Auth Routes
 router.post('/auth/register', registerUser);
 router.post('/auth/login', loginUser);
+router.post('/admin/approve', manualApproveUser);
 
 // Training Content Routes
 router.get('/modules', getModules); // सभी मॉड्यूल्स देखने के लिए

@@ -15,6 +15,7 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // नया यूजर बनाते समय स्कीमा के अनुसार default isPaid: false अपने आप सेट हो जाएगा
     const user = await User.create({ name, email, password: hashedPassword });
 
     res.status(201).json({ message: 'चैनल पार्टनर का अकाउंट बन गया है।' });
@@ -33,10 +34,13 @@ const loginUser = async (req, res) => {
       // JWT Token जनरेट करना
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
+      // 💡 मास्टर फिक्स: रिस्पॉन्स में 'isPaid' को जोड़ दिया गया है 
+      // ताकि लॉगिन करते ही फ्रंटएंड को डेटाबेस का लाइव स्टेटस (true/false) मिल सके
       res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
+        isPaid: user.isPaid || false, // डेटाबेस से लाइव वैल्यू भेजेगा
         completedVideos: user.completedVideos,
         currentUnlockedVideo: user.currentUnlockedVideo,
         token

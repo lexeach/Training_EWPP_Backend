@@ -11,7 +11,7 @@ const modulesData = [
     moduleId: 1,
     title: "Module 1 → Introduction",
     videos: [
-      { videoId: "m1-v1", title: "Welcome to the Company", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 1 },
+      { videoId: "m1-v1", title: "Welcome to the Company", url: "https://docs.google.com/uc?export=download&id=1NJPqJaYtB_pOBb2miUdCMf6Q4Zxc078n", sequenceOrder: 1 },
       { videoId: "m1-v2", title: "Our Mission, Vision & Culture", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 2 }
     ]
   },

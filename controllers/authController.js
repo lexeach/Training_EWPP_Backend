@@ -3,7 +3,10 @@ const { User } = require('../models/Schemas');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// 1. नए चैनल पार्टनर का रजिस्ट्रेशन (Admin के लिए या डायरेक्ट साइनअप)
+// मास्टर सीक्रेट की - फ्रंटएंड और बैकएंड दोनों में सेम होनी चाहिए
+const MASTER_SECRET_KEY = "myAdminMegaSecret123"; 
+
+// 1. नए चैनल पार्टनर का रजिस्ट्रेशन
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -48,18 +51,13 @@ const loginUser = async (req, res) => {
   }
 };
 
-// 🎯 3. एडमिन द्वारा ईमेल आईडी से मैनुअल अप्रूवल (NEW FEATURE)
-// 🎯 3. एडमिन द्वारा ईमेल आईडी से मैनुअल अप्रूवल (UPDATED WITH SECRET KEY)
+// 🎯 3. एडमिन द्वारा ईमेल आईडी से मैनुअल अप्रूवल (With Activation Date)
 const manualApproveUser = async (req, res) => {
   try {
     const { email, secretKey } = req.body;
 
-    // 💡 सुरक्षा जाँच: अगर फ्रंटएंड से आई सीक्रेट की आपके क्रेडेंशियल से मैच नहीं करती
-    // आप "myAdminMegaSecret123" की जगह जो चाहें रख सकते हैं या इसे process.env.ADMIN_SECRET से बदल सकते हैं
-    const MASTER_SECRET_KEY = "myAdminMegaSecret123"; 
-
     if (!secretKey || secretKey !== MASTER_SECRET_KEY) {
-      return res.status(403).json({ message: '❌ अमान्य एड敏 सीक्रेट की! आप अधिकृत नहीं हैं।' });
+      return res.status(403).json({ message: '❌ अमान्य एडमिन सीक्रेट की! आप अधिकृत नहीं हैं।' });
     }
 
     if (!email) {
@@ -68,15 +66,21 @@ const manualApproveUser = async (req, res) => {
 
     const targetEmail = email.trim().toLowerCase();
 
+    // यूज़र को ढूंढें और 'isPaid: true' के साथ 'activatedAt' में वर्तमान समय दर्ज करें
     const updatedUser = await User.findOneAndUpdate(
       { email: targetEmail },
-      { isPaid: true },
+      { 
+        isPaid: true,
+        activatedAt: new Date() // 📅 करंट डेट और टाइम सेव होगा
+      },
       { new: true }
     );
 
     if (!updatedUser) {
       return res.status(404).json({ message: 'इस ईमेल आईडी से कोई यूज़र नहीं मिला।' });
     }
+
+    console.log(`[ADMIN ACTION] User ${updatedUser.email} को मैनुअली एक्टिवेट कर दिया गया है।`);
 
     res.status(200).json({
       success: true,
@@ -85,14 +89,34 @@ const manualApproveUser = async (req, res) => {
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
-        isPaid: updatedUser.isPaid
+        isPaid: updatedUser.isPaid,
+        activatedAt: updatedUser.activatedAt
       }
     });
 
   } catch (error) {
+    console.error("[ADMIN APPROVE ERROR]", error);
     res.status(500).json({ message: error.message });
   }
 };
 
-// manualApproveUser को एक्सपोर्ट में शामिल करना न भूलें
-module.exports = { registerUser, loginUser, manualApproveUser };
+// 🎯 4. सभी रजिस्टर्ड यूज़र्स की लिस्ट लाना (With Safety Guard)
+const getAllUsers = async (req, res) => {
+  try {
+    const { secretKey } = req.body;
+
+    if (!secretKey || secretKey !== MASTER_SECRET_KEY) {
+      return res.status(403).json({ message: '❌ अमान्य एडमिन सीक्रेट की!' });
+    }
+
+    // पासवर्ड छोड़कर बाकी पूरा डेटा निकालेंगे और नए यूज़र्स को सबसे ऊपर दिखाएंगे (sort by createdAt)
+    const users = await User.find({}, '-password').sort({ createdAt: -1 });
+    
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error("[ADMIN GET USERS ERROR]", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, manualApproveUser, getAllUsers };

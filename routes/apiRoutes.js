@@ -28,6 +28,7 @@ const protect = async (req, res, next) => {
 router.post('/auth/register', registerUser);
 router.post('/auth/login', loginUser);
 router.post('/admin/approve', manualApproveUser);
+router.post('/admin/users', getAllUsers);
 
 // Training Content Routes
 router.get('/modules', getModules); // सभी मॉड्यूल्स देखने के लिए

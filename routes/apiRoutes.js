@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/Schemas');
-const { registerUser, loginUser, manualApproveUser } = require('../controllers/authController');
+const { registerUser, loginUser, manualApproveUser, getAllUsers } = require('../controllers/authController');
 const { getModules, updateProgress } = require('../controllers/trainingController');
 
 // --- AUTH MIDDLEWARE (टोकन वेरीफाई करने के लिए) ---

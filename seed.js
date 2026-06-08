@@ -97,18 +97,27 @@ const modulesData = [
 ];
 
 // Database operations function
+// डेटाबेस में इन्सर्ट करने का फंक्शन
 const seedDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB Connected for seeding...");
+    console.log("MongoDB Connected for seeding 3-tier structure...");
 
-    // Clear old structural content to prevent data overlaps
+    // 🟢 स्टेप 1: पुराना डेटा डिलीट करें
     await Module.deleteMany();
     console.log("Old modules deleted.");
 
-    // Seed the new array structure 
+    // 🟢 स्टेप 2: पुराना यूनिक इंडेक्स ड्रॉप करें जो एरर दे रहा है (यह एरर फिक्स करेगा)
+    try {
+      await Module.collection.dropIndexes();
+      console.log("Old indexes dropped successfully.");
+    } catch (indexError) {
+      console.log("No old indexes to drop or already cleared.");
+    }
+
+    // स्टेप 3: नया डेटा इन्सर्ट करें
     await Module.insertMany(modulesData);
-    console.log("🎉 All 7 Modules with 45 comprehensive videos seeded successfully!");
+    console.log("🎉 All Modules, Sub-Modules, and Videos seeded successfully!");
 
     process.exit();
   } catch (error) {
@@ -116,7 +125,6 @@ const seedDatabase = async () => {
     process.exit(1);
   }
 };
-
 // Safe conditional execution flag pattern check
 if (process.argv[2] === '--run') {
     seedDatabase();

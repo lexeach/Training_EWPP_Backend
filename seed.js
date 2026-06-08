@@ -11,7 +11,7 @@ const modulesData = [
     moduleId: 1,
     title: "Module 1 → Introduction",
     videos: [
-      { videoId: "m1-v1", title: "Welcome to Exowa Women Partner Program", url: "https://startling-fox-1b3951.netlify.app/output.mp4", sequenceOrder: 1 },
+      { videoId: "m1-v1", title: "Welcome to Exowa Women Partner Program", url: "https://all-exowa-training-video.netlify.app/output.mp4", sequenceOrder: 1 },
       { videoId: "m1-v2", title: "Why This Opportunity is Special for Women", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 2 },
       { videoId: "m1-v3", title: "Success Mindset for Women Partners", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 3 },
       { videoId: "m1-v4", title: "Exowa Mission & Vision", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 4 }

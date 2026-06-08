@@ -94,4 +94,96 @@ const updateProgress = async (req, res) => {
   }
 };
 
+// 3. क्विज़ सबमिट करने और रिजल्ट जांचने का लॉजिक
+const submitQuiz = async (req, res) => {
+  try {
+    const { videoId, answers } = req.body; // answers = [0, 2, 1, 3] (यूजर के चुने विकल्प)
+    const userId = req.user.id;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'यूजर नहीं मिला' });
+
+    // डेटाबेस से वर्तमान वीडियो का क्विज़ निकालें
+    const allModules = await Module.find();
+    let currentVideoObj = null;
+    let flatVideos = [];
+
+    // मास्टर लिस्ट फ्लैट करना (आपके पुराने लॉजिक के अनुसार)
+    allModules.forEach(mod => {
+      if (mod.subModules && mod.subModules.length > 0) {
+        mod.subModules.forEach(subMod => {
+          if (subMod.videos) flatVideos.push(...subMod.videos);
+        });
+      } else if (mod.videos) {
+        flatVideos.push(...mod.videos);
+      }
+    });
+    flatVideos.sort((a, b) => a.sequenceOrder - b.sequenceOrder);
+
+    currentVideoObj = flatVideos.find(v => v.videoId === videoId);
+    if (!currentVideoObj || !currentVideoObj.quiz || currentVideoObj.quiz.length === 0) {
+      return res.status(404).json({ message: 'इस वीडियो के लिए कोई क्विज़ नहीं मिला।' });
+    }
+
+    // स्कोर कैलकुलेट करें
+    let score = 0;
+    const totalQuestions = currentVideoObj.quiz.length;
+
+    currentVideoObj.quiz.forEach((q, index) => {
+      if (answers[index] === q.correctAnswer) {
+        score++;
+      }
+    });
+
+    // पास होने के लिए कम से कम 50% नंबर ज़रूरी हैं (आप इसे बदल सकते हैं)
+    const passed = (score / totalQuestions) >= 0.5;
+
+    // रिजल्ट को यूजर प्रोफाइल में अपडेट या ऐड करें
+    const existingResultIndex = user.quizResults.findIndex(r => r.videoId === videoId);
+    const newResult = { videoId, score, totalQuestions, passed, attemptedAt: new Date() };
+
+    if (existingResultIndex !== -1) {
+      user.quizResults[existingResultIndex] = newResult;
+    } else {
+      user.quizResults.push(newResult);
+    }
+
+    // 🏆 अगर पास हो गया है, तो ही अगला वीडियो अनलॉक करें!
+    if (passed) {
+      if (!user.completedVideos.includes(videoId)) {
+        user.completedVideos.push(videoId);
+      }
+
+      const currentIndex = flatVideos.findIndex(v => v.videoId === videoId);
+      if (currentIndex !== -1 && currentIndex + 1 < flatVideos.length) {
+        const nextVideoObj = flatVideos[currentIndex + 1];
+        
+        const currentUnlockedIndex = flatVideos.findIndex(v => v.videoId === user.currentUnlockedVideo);
+        if (currentIndex >= currentUnlockedIndex - 1) {
+          user.currentUnlockedVideo = nextVideoObj.videoId;
+        }
+      } else {
+        user.currentUnlockedVideo = "COMPLETED_ALL";
+      }
+    }
+
+    await user.save();
+
+    res.json({
+      passed,
+      score,
+      totalQuestions,
+      completedVideos: user.completedVideos,
+      currentUnlockedVideo: user.currentUnlockedVideo,
+      quizResults: user.quizResults
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// इसे module.exports में ऐड करना न भूलें
+module.exports = { getModules, updateProgress, submitQuiz };
+
 module.exports = { getModules, updateProgress };

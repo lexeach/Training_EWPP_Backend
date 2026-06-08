@@ -6,7 +6,14 @@ const VideoSchema = new mongoose.Schema({
   videoId: { type: String, required: true }, // 🟢 ध्यान दें: यहाँ से unique: true हटा दिया है
   title: { type: String, required: true },
   url: { type: String, required: true },
-  sequenceOrder: { type: Number, required: true } // वीडियो का आर्डर (1, 2, 3...)
+  sequenceOrder: { type: Number, required: true }, // वीडियो का आर्डर (1, 2, 3...)
+  quiz: [
+    {
+      question: { type: String, required: true },
+      options: [{ type: String, required: true }], // 4 विकल्प
+      correctAnswer: { type: Number, required: true } // सही विकल्प का इंडेक्स (0, 1, 2, या 3)
+    }
+  ]
 });
 
 // --- 2. SUB-MODULE SCHEMA (नया Tier जोड़ा गया है) ---

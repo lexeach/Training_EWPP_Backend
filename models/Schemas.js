@@ -47,7 +47,16 @@ const UserSchema = new mongoose.Schema({
   completedVideos: [{ type: String }], 
   
   // वर्तमान में यूजर किस वीडियो तक पहुँचा है (जो अनलॉक्ड है पर अभी देखा नहीं)
-  currentUnlockedVideo: { type: String, default: "m1s1-v1" } 
+  currentUnlockedVideo: { type: String, default: "m1s1-v1" } ,
+  quizResults: [
+    {
+      videoId: { type: String },
+      score: { type: Number },
+      totalQuestions: { type: Number },
+      passed: { type: Boolean },
+      attemptedAt: { type: Date, default: Date.now }
+    }
+  ]
 }, { timestamps: true });
 
 const Module = mongoose.model('Module', ModuleSchema);

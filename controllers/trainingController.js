@@ -186,4 +186,4 @@ const submitQuiz = async (req, res) => {
 // इसे module.exports में ऐड करना न भूलें
 module.exports = { getModules, updateProgress, submitQuiz };
 
-module.exports = { getModules, updateProgress };
+

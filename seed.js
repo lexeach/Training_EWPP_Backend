@@ -34,7 +34,22 @@ const modulesData = [
               }
             ]
           },
-          { videoId: "m1s1-v2", title: "Program का उद्देश्य", url: "https://all-exowa-training-video.netlify.app/program_purpose.mp4", sequenceOrder: 2, quiz: [] },
+          { videoId: "m1s1-v2",
+           title: "Program का उद्देश्य", 
+           url: "https://all-exowa-training-video.netlify.app/program_purpose.mp4", 
+           sequenceOrder: 2, 
+           quiz: [
+             {
+                question: "EXOWA मुख्य रूप से किसके विकास के लिए काम करता है?",
+                options: ["बच्चों की शिक्षा", "व्यापारिक लोन", "कृषि उपकरण", "मकान निर्माण"],
+                correctAnswer: 0
+              },
+              {
+                question: "ट्रेनिंग का अगला वीडियो कब अनलॉक होता है?",
+                options: ["वीडियो स्किप करने पर", "वीडियो पूरा देखने और असेसमेंट पास करने पर", "2 दिन बाद", "कभी नहीं"],
+                correctAnswer: 1
+              }
+           ] },
           { videoId: "m1s1-v3", title: "Women empowerment vision", url: "https://all-exowa-training-video.netlify.app/women_empowerment_vision.mp4", sequenceOrder: 3, quiz: [] },
           { videoId: "m1s1-v4", title: "आपको क्या करना है ?", url: "https://all-exowa-training-video.netlify.app/aapko_kya_karna_hai.mp4", sequenceOrder: 4, quiz: [] }
         ]

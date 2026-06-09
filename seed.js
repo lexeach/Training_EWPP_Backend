@@ -18,7 +18,7 @@ const modulesData = [
           { 
             videoId: "m1s1-v1", 
             title: "Exowa क्या है?", 
-            url: "https://all-exowa-training-video.netlify.app/output.mp4", 
+            url: "https://all-exowa-training-video.netlify.app/exowa_kya_hai.mp4", 
             sequenceOrder: 1,
             // 🎯 जोड़ा गया क्विज़ डेटा
             quiz: [
@@ -34,9 +34,9 @@ const modulesData = [
               }
             ]
           },
-          { videoId: "m1s1-v2", title: "Program का उद्देश्य", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 2, quiz: [] },
-          { videoId: "m1s1-v3", title: "Women empowerment vision", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 3, quiz: [] },
-          { videoId: "m1s1-v4", title: "घर से काम कैसे होगा?", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 4, quiz: [] }
+          { videoId: "m1s1-v2", title: "Program का उद्देश्य", url: "https://all-exowa-training-video.netlify.app/program_purpose.mp4", sequenceOrder: 2, quiz: [] },
+          { videoId: "m1s1-v3", title: "Women empowerment vision", url: "https://all-exowa-training-video.netlify.app/women_empowerment_vision.mp4", sequenceOrder: 3, quiz: [] },
+          { videoId: "m1s1-v4", title: "आपको क्या करना है ?", url: "https://all-exowa-training-video.netlify.app/aapko_kya_karna_hai.mp4", sequenceOrder: 4, quiz: [] }
         ]
       },
       {

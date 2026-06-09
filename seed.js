@@ -58,7 +58,7 @@ const modulesData = [
         subModuleId: "m1-s2",
         title: "SubModule 1B: Why This Opportunity is Special for Women",
         videos: [
-          { videoId: "m1s2-v1", title: "Work from home", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 5, quiz: [] },
+          { videoId: "m1s2-v1", title: "Work from home", url: "https://all-exowa-training-video.netlify.app/work_from_home.mp4", sequenceOrder: 5, quiz: [] },
           { videoId: "m1s2-v2", title: "सम्मान + income", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 6, quiz: [] },
           { videoId: "m1s2-v3", title: "बिना investment business mindset", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 7, quiz: [] },
           { videoId: "m1s2-v4", title: "Housewives भी क्यों सफल हो सकती हैं", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 8, quiz: [] }

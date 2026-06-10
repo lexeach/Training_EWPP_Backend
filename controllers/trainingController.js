@@ -32,7 +32,7 @@ const updateProgress = async (req, res) => {
     // 1. डेटाबेस से सभी मॉड्यूल्स को moduleId के क्रम में निकालें
     const allModules = await Module.find().sort({ moduleId: 1 });
     
-    // 2.  मास्टर फिक्स: 3-Tier स्ट्रक्चर (Module -> subModules -> videos) से डेटा फ्लैट करना
+    // 2.  マスター फिक्स: 3-Tier स्ट्रक्चर (Module -> subModules -> videos) से डेटा फ्लैट करना
     let flatVideos = [];
     allModules.forEach(mod => {
       if (mod.subModules && Array.isArray(mod.subModules) && mod.subModules.length > 0) {
@@ -53,7 +53,7 @@ const updateProgress = async (req, res) => {
       }
     });
 
-    // पूरी मास्टर लिस्ट को एक बार और ग्लोबल लेवल पर sequenceOrder के हिसाब से री-सॉर्ट करें ताकि क्रम न टूटे
+    // पूरी मास्टर लिस्ट को एक बार और ग्लोबल LEVEL पर sequenceOrder के हिसाब से री-सॉर्ट करें ताकि क्रम न टूटे
     flatVideos.sort((a, b) => a.sequenceOrder - b.sequenceOrder);
 
     // 3. फ्लैट लिस्ट में वर्तमान वीडियो का इंडेक्स (Index) ढूंढें
@@ -76,6 +76,10 @@ const updateProgress = async (req, res) => {
       user.currentUnlockedVideo = "COMPLETED_ALL"; // सभी मॉड्यूल्स के सभी वीडियो खत्म हो चुके हैं
       console.log(`[PROGRESS LOG] 🎉 बधाई हो! यूजर ने सारे मॉड्यूल्स समाप्त कर लिए हैं।`);
     }
+
+    // 🌟 Mongoose को बताएं कि Arrays और Strings में बदलाव हुए हैं ताकि वो MongoDB में सेव होना मिस न करे
+    user.markModified('completedVideos');
+    user.markModified('currentUnlockedVideo');
 
     // 5. डेटाबेस में प्रोग्रेस सुरक्षित सेव करना
     await user.save();
@@ -135,11 +139,14 @@ const submitQuiz = async (req, res) => {
       }
     });
 
-    // पास होने के लिए कम से कम 50% नंबर ज़रूरी हैं (आप इसे बदल सकते हैं)
+    // पास होने के लिए कम से कम 50% नंबर ज़रूरी हैं
     const passed = (score / totalQuestions) >= 0.5;
 
-    // रिजल्ट को यूजर प्रोफाइल में अपडेट या ऐड करें
-    const existingResultIndex = user.quizResults.findIndex(r => r.videoId === videoId);
+    // रिजल्ट को यूजर प्रोफाइल में अपडेट या ऐड करें (सुरक्षित तरीके से स्ट्रिंग ट्रिम करके मैच कर रहे हैं)
+    const existingResultIndex = user.quizResults.findIndex(
+      r => String(r.videoId).trim() === String(videoId).trim()
+    );
+    
     const newResult = { videoId, score, totalQuestions, passed, attemptedAt: new Date() };
 
     if (existingResultIndex !== -1) {
@@ -167,6 +174,12 @@ const submitQuiz = async (req, res) => {
       }
     }
 
+    // 🌟 सुपर फिक्स: मोंगोडीबी को फोर्स करें कि उसे इन एरे/ऑब्जेक्ट्स के बदलावों को हर हाल में सेव करना है!
+    user.markModified('quizResults');
+    user.markModified('completedVideos');
+    user.markModified('currentUnlockedVideo');
+
+    // फाइनल डेटाबेस सेव
     await user.save();
 
     res.json({
@@ -185,5 +198,3 @@ const submitQuiz = async (req, res) => {
 
 // इसे module.exports में ऐड करना न भूलें
 module.exports = { getModules, updateProgress, submitQuiz };
-
-

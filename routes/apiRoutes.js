@@ -4,7 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/Schemas');
 const { registerUser, loginUser, manualApproveUser, getAllUsers } = require('../controllers/authController');
-// 🎯 फिक्स: controllers से submitQuiz को भी इम्पोर्ट किया
+// 🎯controllers से इम्पोर्ट्स
 const { getModules, updateProgress, submitQuiz } = require('../controllers/trainingController');
 
 // --- AUTH MIDDLEWARE (टोकन वेरीफाई करने के लिए) ---
@@ -31,11 +31,15 @@ router.post('/auth/login', loginUser);
 router.post('/admin/approve', manualApproveUser);
 router.post('/admin/users', getAllUsers);
 
-// 📚 Training Content & Assessment Routes
-router.get('/modules', protect, getModules); // 🔒 सुरक्षा सुधार: इसे भी प्रोटेक्टेड कर दिया ताकि बिना लॉगिन कोई डेटा न देख पाए
-router.post('/progress/update', protect, updateProgress); // प्रोग्रेस अपडेट करने के लिए
+// 📚 Training Content Routes
+router.get('/modules', protect, getModules); 
 
-// 🎯 नया रूट: वीडियो का ऑनलाइन असेसमेंट (टेस्ट) सबमिट करने के लिए
-router.post('/quiz/submit', protect, submitQuiz);
+// 📈 Progress Update Routes (स्मार्ट सिंक: दोनों राउट्स को सपोर्ट करेगा)
+router.post('/update-progress', protect, updateProgress); // ✨ फ्रंटएंड का नया राउट
+router.post('/progress/update', protect, updateProgress); // 🔄 पुराना बैकअप राउट ताकि कहीं भी 404 न आए
+
+// 🎯 Quiz / Assessment Submission Routes (404 एरर को हमेशा के लिए खत्म करने के लिए 🚀)
+router.post('/submit-quiz', protect, submitQuiz); // ✨ फ्रंटएंड का मुख्य राउट फिक्स
+router.post('/quiz/submit', protect, submitQuiz); // 🔄 पुराना बैकअप राउट
 
 module.exports = router;

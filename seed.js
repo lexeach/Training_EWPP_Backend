@@ -22,17 +22,156 @@ const modulesData = [
             sequenceOrder: 1,
             // 🎯 जोड़ा गया क्विज़ डेटा
             quiz: [
-              {
-                question: "EXOWA मुख्य रूप से किसके विकास के लिए काम करता है?",
-                options: ["बच्चों की शिक्षा", "व्यापारिक लोन", "कृषि उपकरण", "मकान निर्माण"],
-                correctAnswer: 0
-              },
-              {
-                question: "ट्रेनिंग का अगला वीडियो कब अनलॉक होता है?",
-                options: ["वीडियो स्किप करने पर", "वीडियो पूरा देखने और असेसमेंट पास करने पर", "2 दिन बाद", "कभी नहीं"],
-                correctAnswer: 1
-              }
-            ]
+{
+question: "Exowa का मुख्य उद्देश्य क्या है?",
+options: [
+"बच्चों की पढ़ाई को आसान, प्रैक्टिस आधारित और Personalized बनाना",
+"केवल ऑनलाइन गेम उपलब्ध कराना",
+"केवल स्कूलों को मैनेज करना",
+"केवल ट्यूशन क्लास चलाना"
+],
+correctAnswer: 0
+},
+{
+question: "हर बच्चे की Learning Capacity के बारे में Script में क्या बताया गया है?",
+options: [
+"सभी बच्चे एक समान सीखते हैं",
+"हर बच्चे की सीखने की क्षमता अलग होती है",
+"केवल तेज बच्चे ही सफल होते हैं",
+"बच्चों को Practice की आवश्यकता नहीं होती"
+],
+correctAnswer: 1
+},
+{
+question: "Exowa को किस रूप में प्रस्तुत किया गया है?",
+options: [
+"एक सोशल मीडिया प्लेटफॉर्म",
+"एक Smart Education Platform",
+"एक बैंकिंग ऐप",
+"एक गेमिंग ऐप"
+],
+correctAnswer: 1
+},
+{
+question: "Exowa की मदद से बच्चे क्या कर सकते हैं?",
+options: [
+"केवल वीडियो देख सकते हैं",
+"Regular Practice कर सकते हैं",
+"केवल चैट कर सकते हैं",
+"केवल गेम खेल सकते हैं"
+],
+correctAnswer: 1
+},
+{
+question: "Exowa की मदद से Parents क्या कर सकते हैं?",
+options: [
+"बच्चे की Progress Track कर सकते हैं",
+"केवल फीस जमा कर सकते हैं",
+"केवल Attendance देख सकते हैं",
+"कुछ भी नहीं"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa Students के किस पहलू को पहचानने में मदद करता है?",
+options: [
+"Favourite Colour",
+"Weak Subjects / Weak Points",
+"दोस्तों की संख्या",
+"स्कूल की दूरी"
+],
+correctAnswer: 1
+},
+{
+question: "निम्न में से कौन-सी सुविधा Exowa में उपलब्ध है?",
+options: [
+"Personalized Question Papers",
+"Online Tests",
+"Performance Analysis",
+"उपरोक्त सभी"
+],
+correctAnswer: 3
+},
+{
+question: "Instant Feedback का मुख्य लाभ क्या है?",
+options: [
+"बच्चा अपनी तैयारी और गलतियों को जल्दी समझ सकता है",
+"मोबाइल की स्पीड बढ़ती है",
+"इंटरनेट फ्री मिलता है",
+"होमवर्क अपने आप पूरा हो जाता है"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa Women Partner Program के माध्यम से महिलाएं क्या कर सकती हैं?",
+options: [
+"Parents को Platform के बारे में जानकारी दे सकती हैं",
+"बच्चों की शिक्षा में योगदान दे सकती हैं",
+"घर बैठे Income बना सकती हैं",
+"उपरोक्त सभी"
+],
+correctAnswer: 3
+},
+{
+question: "Exowa केवल बच्चों की मदद करता है। यह कथन है:",
+options: [
+"सही",
+"गलत"
+],
+correctAnswer: 1
+},
+{
+question: "Exowa का मिशन किन दो क्षेत्रों को साथ लेकर चलता है?",
+options: [
+"Education और Women Empowerment",
+"Agriculture और Banking",
+"Sports और Tourism",
+"Politics और Business"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa का विश्वास क्या है?",
+options: [
+"हर बच्चे को उसकी जरूरत के अनुसार सीखने का अधिकार मिलना चाहिए",
+"केवल टॉपर बच्चों को अवसर मिलना चाहिए",
+"केवल बड़े शहरों के बच्चे सफल हो सकते हैं",
+"Practice की आवश्यकता नहीं होती"
+],
+correctAnswer: 0
+},
+{
+question: "Personalized Learning का क्या अर्थ है?",
+options: [
+"हर बच्चे को उसकी जरूरत के अनुसार सीखने का अवसर देना",
+"सभी बच्चों को एक जैसा पढ़ाना",
+"केवल परीक्षा पर ध्यान देना",
+"केवल Homework देना"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa बच्चों को बेहतर Revision का अवसर क्यों देता है?",
+options: [
+"ताकि सीखना मजबूत हो और परिणाम बेहतर हों",
+"ताकि बच्चे कम पढ़ें",
+"ताकि स्कूल बंद हो जाएं",
+"ताकि परीक्षा न देनी पड़े"
+],
+correctAnswer: 0
+},
+{
+question: "Training का अगला वीडियो कब अनलॉक होगा?",
+options: [
+"वीडियो पूरा देखने और Assessment Pass करने पर",
+"वीडियो Skip करने पर",
+"7 दिन बाद",
+"अपने आप"
+],
+correctAnswer: 0
+}
+]
+
           },
           { videoId: "m1s1-v2",
            title: "Program का उद्देश्य", 

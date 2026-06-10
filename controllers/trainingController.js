@@ -139,8 +139,8 @@ const submitQuiz = async (req, res) => {
       }
     });
 
-    // पास होने के लिए कम से कम 50% नंबर ज़रूरी हैं
-    const passed = (score / totalQuestions) >= 0.5;
+    // पास होने के लिए कम से कम 80% नंबर ज़रूरी हैं
+    const passed = (score / totalQuestions) >= 0.8;
 
     // रिजल्ट को यूजर प्रोफाइल में अपडेट या ऐड करें (सुरक्षित तरीके से स्ट्रिंग ट्रिम करके मैच कर रहे हैं)
     const existingResultIndex = user.quizResults.findIndex(

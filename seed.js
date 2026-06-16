@@ -650,8 +650,7 @@ correctAnswer: 0
            title: "Work from home",
            url: "https://all-exowa-training-video.netlify.app/work_from_home.mp4",
            sequenceOrder: 5,
-           ```javascript id="a7w9fh"
-quiz: [
+          quiz: [
   {
     question: "Exowa Women Partner Program महिलाओं को क्या आज़ादी देता है?",
     options: [

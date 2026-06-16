@@ -198,7 +198,157 @@ correctAnswer: 0
         title: "SubModule 1B: Why This Opportunity is Special for Women",
         videos: [
           { videoId: "m1s2-v1", title: "Work from home", url: "https://all-exowa-training-video.netlify.app/work_from_home.mp4", sequenceOrder: 5, quiz: [] },
-          { videoId: "m1s2-v2", title: "सम्मान + income", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 6, quiz: [] },
+          { videoId: "m1s2-v2",
+           title: "सम्मान + income",
+           url: "https://all-exowa-training-video.netlify.app/samman_aur_income.mp4", sequenceOrder: 6,
+           quiz: [
+{
+question: "महिलाएं काम करने के बारे में सोचते समय केवल किस चीज़ के बारे में नहीं सोचतीं?",
+options: ["Income", "सम्मान और पहचान", "आत्मविश्वास", "उपरोक्त सभी"],
+correctAnswer: 0
+},
+{
+question: "हर महिला क्या चाहती है?",
+options: [
+"लोग उसकी बात को महत्व दें",
+"परिवार उस पर गर्व करे",
+"समाज उसे सम्मान की नजर से देखे",
+"उपरोक्त सभी"
+],
+correctAnswer: 3
+},
+{
+question: "Exowa Women Partner Program महिलाओं को क्या प्रदान करता है?",
+options: [
+"सिर्फ Income",
+"सिर्फ सम्मान",
+"सिर्फ Training",
+"सम्मान, आत्मविश्वास और Income का अवसर"
+],
+correctAnswer: 3
+},
+{
+question: "जब आप बच्चों की शिक्षा में योगदान देती हैं और Parents की मदद करती हैं, तो लोग आपको किस रूप में देखने लगते हैं?",
+options: [
+"केवल काम करने वाली महिला",
+"Responsible और Inspiring Personality",
+"Teacher",
+"Student"
+],
+correctAnswer: 1
+},
+{
+question: "Script के अनुसार असली सम्मान क्या है?",
+options: [
+"अधिक पैसा कमाना",
+"लोगों का विश्वास और सम्मान प्राप्त करना",
+"बड़ी नौकरी करना",
+"विदेश जाना"
+],
+correctAnswer: 1
+},
+{
+question: "अपनी मेहनत से Income कमाने पर महिला में क्या बढ़ता है?",
+options: [
+"Self Confidence",
+"Decision लेने की क्षमता",
+"सक्षमता का एहसास",
+"उपरोक्त सभी"
+],
+correctAnswer: 3
+},
+{
+question: "Income केवल क्या नहीं देती?",
+options: [
+"पैसे",
+"सपनों को पूरा करने की ताकत",
+"परिवार की मदद का अवसर",
+"आत्मनिर्भर बनने का रास्ता"
+],
+correctAnswer: 0
+},
+{
+question: "Income महिलाओं को किस दिशा में आगे बढ़ने में मदद करती है?",
+options: [
+"आत्मनिर्भर बनने में",
+"खेलकूद में",
+"विदेश यात्रा में",
+"सरकारी नौकरी में"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa Women Partner Program में महिलाएं क्या कमाती हैं?",
+options: [
+"केवल Income",
+"केवल सम्मान",
+"सम्मान, Income और अपनी पहचान",
+"केवल अनुभव"
+],
+correctAnswer: 2
+},
+{
+question: "जब महिला सम्मान और आत्मनिर्भरता दोनों हासिल कर लेती है, तो क्या होता है?",
+options: [
+"उसकी जिंदगी बदलने लगती है",
+"वह नौकरी छोड़ देती है",
+"उसे Training की जरूरत नहीं रहती",
+"कुछ नहीं बदलता"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa का उद्देश्य केवल क्या नहीं है?",
+options: [
+"Learning",
+"Earning",
+"Training",
+"Marketing"
+],
+correctAnswer: 1
+},
+{
+question: "Exowa महिलाओं को क्या देना चाहता है?",
+options: [
+"आत्मविश्वास",
+"सम्मान",
+"सफलता",
+"उपरोक्त सभी"
+],
+correctAnswer: 3
+},
+{
+question: "Income से महिलाओं में कौन-सी शक्ति बढ़ती है?",
+options: [
+"Decision लेने की ताकत",
+"खेल क्षमता",
+"यात्रा क्षमता",
+"तकनीकी ज्ञान"
+],
+correctAnswer: 0
+},
+{
+question: "निम्न में से कौन-सा Income का लाभ नहीं है?",
+options: [
+"सपनों को पूरा करना",
+"परिवार की मदद करना",
+"आत्मनिर्भर बनना",
+"बिना मेहनत सफलता पाना"
+],
+correctAnswer: 3
+},
+{
+question: "Script के अनुसार एक महिला को वास्तव में सशक्त क्या बनाता है?",
+options: [
+"केवल Income",
+"केवल सम्मान",
+"सम्मान और Income का संयोजन",
+"केवल शिक्षा"
+],
+correctAnswer: 2
+}
+]
+ },
           { videoId: "m1s2-v3", title: "बिना investment business mindset", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 7, quiz: [] },
           { videoId: "m1s2-v4", title: "Housewives भी क्यों सफल हो सकती हैं", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 8, quiz: [] }
         ]

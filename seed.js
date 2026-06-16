@@ -330,7 +330,160 @@ options: [
 correctAnswer: 0
 }
 ]},
-          { videoId: "m1s1-v3", title: "Women empowerment vision", url: "https://all-exowa-training-video.netlify.app/women_empowerment_vision.mp4", sequenceOrder: 3, quiz: [] },
+          { videoId: "m1s1-v3", title: "Women empowerment vision", url: "https://all-exowa-training-video.netlify.app/women_empowerment_vision.mp4", sequenceOrder: 3, 
+           quiz: [
+  {
+    question: "हर महिला के अंदर क्या क्षमता होती है?",
+    options: [
+      "कुछ बड़ा करने की क्षमता",
+      "केवल नौकरी करने की क्षमता",
+      "केवल घर संभालने की क्षमता",
+      "केवल पढ़ाई करने की क्षमता"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "महिलाओं को आगे बढ़ने के लिए किन चीजों की आवश्यकता होती है?",
+    options: [
+      "सही अवसर",
+      "सही मार्गदर्शन",
+      "आत्मविश्वास",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Exowa Women Partner Program का Vision केवल क्या नहीं है?",
+    options: [
+      "Income देना",
+      "Training देना",
+      "Education देना",
+      "Marketing करना"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa महिलाओं को Income के अलावा क्या देना चाहता है?",
+    options: [
+      "नई पहचान",
+      "सम्मान",
+      "आत्मनिर्भरता",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Exowa का सपना है कि हर महिला क्या करे?",
+    options: [
+      "अपने पैरों पर खड़ी हो",
+      "अपने सपनों को पूरा करे",
+      "समाज में सकारात्मक बदलाव लाए",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "बहुत सी महिलाएं अपने सपनों को क्यों पीछे छोड़ देती हैं?",
+    options: [
+      "घर की जिम्मेदारियों के कारण",
+      "शिक्षा की कमी के कारण",
+      "समय की अधिकता के कारण",
+      "तकनीक की कमी के कारण"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa का मानना है कि:",
+    options: [
+      "घर संभालने वाली महिला, दुनिया भी बदल सकती है",
+      "महिलाएं केवल घर संभाल सकती हैं",
+      "महिलाएं केवल नौकरी कर सकती हैं",
+      "महिलाएं केवल पढ़ाई कर सकती हैं"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa द्वारा बनाए गए Platform पर महिलाएं क्या कर सकती हैं?",
+    options: [
+      "सीख सकती हैं",
+      "काम कर सकती हैं",
+      "Income Generate कर सकती हैं",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Platform पर महिलाएं कौन-सी Leadership Related Skill विकसित कर सकती हैं?",
+    options: [
+      "Leadership",
+      "Programming",
+      "Accounting",
+      "Designing"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa चाहता है कि महिलाएं केवल किस तक सीमित न रहें?",
+    options: [
+      "Earning",
+      "Learning",
+      "Training",
+      "Networking"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa महिलाओं में किन गुणों को बढ़ावा देना चाहता है?",
+    options: [
+      "Confidence",
+      "Communication",
+      "Leadership",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "जब एक महिला सशक्त होती है तो क्या होता है?",
+    options: [
+      "परिवार मजबूत होता है",
+      "बच्चों का भविष्य बेहतर होता है",
+      "समाज प्रगति करता है",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Exowa Vision का पहला भाग क्या है?",
+    options: [
+      "सशक्त महिला",
+      "सशक्त शिक्षा",
+      "सशक्त व्यवसाय",
+      "सशक्त तकनीक"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa का Vision क्या है?",
+    options: [
+      "सशक्त महिला, सशक्त परिवार, सशक्त समाज, सशक्त भारत",
+      "हर घर में नौकरी",
+      "हर महिला को डिग्री",
+      "हर बच्चे को मोबाइल"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa को विश्वास है कि इस बदलाव का सबसे मजबूत हिस्सा कौन बनेगा?",
+    options: [
+      "आप जैसी महिलाएं",
+      "केवल शिक्षक",
+      "केवल विद्यार्थी",
+      "केवल Parents"
+    ],
+    correctAnswer: 0
+  }
+] 
+          },
           { videoId: "m1s1-v4", title: "आपको क्या करना है ?", url: "https://all-exowa-training-video.netlify.app/aapko_kya_karna_hai.mp4", sequenceOrder: 4, quiz: [] }
         ]
       },

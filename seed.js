@@ -646,7 +646,184 @@ correctAnswer: 0
         subModuleId: "m1-s2",
         title: "SubModule 1B: Why This Opportunity is Special for Women",
         videos: [
-          { videoId: "m1s2-v1", title: "Work from home", url: "https://all-exowa-training-video.netlify.app/work_from_home.mp4", sequenceOrder: 5, quiz: [] },
+          { videoId: "m1s2-v1",
+           title: "Work from home",
+           url: "https://all-exowa-training-video.netlify.app/work_from_home.mp4",
+           sequenceOrder: 5,
+           ```javascript id="a7w9fh"
+quiz: [
+  {
+    question: "Exowa Women Partner Program महिलाओं को क्या आज़ादी देता है?",
+    options: [
+      "विदेश में नौकरी",
+      "Work from Home",
+      "सरकारी नौकरी",
+      "फुल टाइम ऑफिस जॉब"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "इस Program में काम करने के लिए आपको कहाँ जाने की जरूरत है?",
+    options: [
+      "ऑफिस",
+      "कोचिंग सेंटर",
+      "स्कूल",
+      "कहीं बाहर जाने की जरूरत नहीं"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "महिलाएं इस Program में किसकी मदद से काम कर सकती हैं?",
+    options: [
+      "मोबाइल या लैपटॉप",
+      "केवल कंप्यूटर लैब",
+      "केवल ऑफिस सिस्टम",
+      "केवल टैबलेट"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "इस Program की सबसे अच्छी बात क्या है?",
+    options: [
+      "Fixed Office Timing",
+      "अपने समय के अनुसार काम करना",
+      "रोज ऑफिस जाना",
+      "Night Shift करना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Program में कौन-सी सुविधा उपलब्ध है?",
+    options: [
+      "Fixed Timing",
+      "Daily Travelling",
+      "काम की Flexibility",
+      "Office Attendance"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "इस Program में महिलाओं को क्या नहीं करना पड़ता?",
+    options: [
+      "Parents से बात करना",
+      "Demo Share करना",
+      "Daily Travelling",
+      "Online Connect करना"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "काम के दौरान आपको सबसे पहले क्या करना होगा?",
+    options: [
+      "Parents से Online Connect करना",
+      "Admission देना",
+      "Exam लेना",
+      "Fees Collect करना"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Parents को किसके बारे में जानकारी देनी होती है?",
+    options: [
+      "Exowa",
+      "Bank Loan",
+      "Government Scheme",
+      "Scholarship Form"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Parents को जानकारी देने के बाद क्या करना होता है?",
+    options: [
+      "Job देना",
+      "Demo Share करना",
+      "School बदलना",
+      "Certificate देना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Admission Process में आपकी क्या भूमिका होती है?",
+    options: [
+      "मदद करना",
+      "Exam Conduct करना",
+      "Fees तय करना",
+      "Teacher बनना"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "पूरा काम किन माध्यमों से किया जा सकता है?",
+    options: [
+      "WhatsApp",
+      "Phone Call",
+      "Online Tools",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Script के अनुसार आपका घर क्या बन सकता है?",
+    options: [
+      "Training Center",
+      "Office",
+      "School",
+      "Shop"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Work from Home Opportunity का सबसे बड़ा लाभ क्या है?",
+    options: [
+      "परिवार के साथ समय बिताना और Income बनाना",
+      "रोज यात्रा करना",
+      "Office में बैठना",
+      "केवल Training लेना"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Technology के इस दौर में महिलाएं क्या कर सकती हैं?",
+    options: [
+      "घर बैठे सफल Career बना सकती हैं",
+      "केवल पढ़ाई कर सकती हैं",
+      "केवल Shopping कर सकती हैं",
+      "केवल Social Media चला सकती हैं"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa महिलाओं को क्या प्रदान करता है?",
+    options: [
+      "काम की Flexibility",
+      "समय की आज़ादी",
+      "सम्मानजनक Income और Self Confidence",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Script के अनुसार आपका घर क्या बन सकता है?",
+    options: [
+      "सिर्फ जिम्मेदारियों की जगह",
+      "सफलता की शुरुआत",
+      "केवल आराम की जगह",
+      "केवल मनोरंजन की जगह"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Exowa Women Partner Program का संदेश क्या है?",
+    options: [
+      "घर बैठे सीखें, कमाएं और अपनी पहचान बनाएं",
+      "केवल कमाएं",
+      "केवल सीखें",
+      "केवल नौकरी करें"
+    ],
+    correctAnswer: 0
+  }
+]
+ },
           { videoId: "m1s2-v2",
            title: "सम्मान + income",
            url: "https://all-exowa-training-video.netlify.app/samman_aur_income.mp4", sequenceOrder: 6,

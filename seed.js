@@ -484,7 +484,162 @@ correctAnswer: 0
   }
 ] 
           },
-          { videoId: "m1s1-v4", title: "आपको क्या करना है ?", url: "https://all-exowa-training-video.netlify.app/aapko_kya_karna_hai.mp4", sequenceOrder: 4, quiz: [] }
+          { videoId: "m1s1-v4",
+           title: "आपको क्या करना है ?", 
+           url: "https://all-exowa-training-video.netlify.app/aapko_kya_karna_hai.mp4",
+           sequenceOrder: 4,
+           quiz: [
+  {
+    question: "इस Program में आपका मुख्य काम कितनी गतिविधियों के आसपास रहता है?",
+    options: [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "जिन लोगों के Contact Number आपके पास पहले से हैं, उन्हें क्या बताना है?",
+    options: [
+      "Work From Home Opportunity",
+      "Exowa Product",
+      "Job Vacancy",
+      "Business Loan"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "किन Parents को Exowa Product के बारे में बताना है?",
+    options: [
+      "जिनके बच्चे Nursery में पढ़ते हैं",
+      "जिनके बच्चे College में पढ़ते हैं",
+      "जिनके बच्चे 6वीं से 12वीं कक्षा में पढ़ते हैं",
+      "सभी Parents को"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "निम्न में से कौन Existing Contacts का उदाहरण है?",
+    options: [
+      "रिश्तेदार",
+      "पड़ोसी",
+      "दोस्त",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Existing Contacts को Exowa के बारे में क्या समझाना है?",
+    options: [
+      "यह बच्चों की पढ़ाई में कैसे मदद करता है",
+      "यह नौकरी कैसे दिलाता है",
+      "यह बैंक खाता कैसे खोलता है",
+      "यह मोबाइल कैसे बेचता है"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Company द्वारा दिए गए Leads को क्या बताना है?",
+    options: [
+      "Exowa Product",
+      "School Admission",
+      "Work From Home Opportunity",
+      "Scholarship Program"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Company Provided Leads किस बारे में जानकारी प्राप्त करते हैं?",
+    options: [
+      "Work From Home Opportunity",
+      "Exowa Product Features",
+      "School Fees",
+      "Exam Schedule"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Work From Home Opportunity में महिलाओं को क्या बताया जाता है?",
+    options: [
+      "वे घर बैठे काम कर सकती हैं",
+      "वे सम्मानजनक Income कमा सकती हैं",
+      "वे Exowa Women Partner Program से जुड़ सकती हैं",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Golden Rule के अनुसार Existing Contacts का संबंध किससे है?",
+    options: [
+      "Work From Home Opportunity",
+      "Exowa Product",
+      "Training Program",
+      "Leadership Program"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Golden Rule के अनुसार Company Provided Leads का संबंध किससे है?",
+    options: [
+      "Exowa Product",
+      "Online Test",
+      "Work From Home Opportunity",
+      "School Program"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Program में Training, Calling Script और Demo कौन उपलब्ध कराता है?",
+    options: [
+      "Parents",
+      "Students",
+      "Company / Team",
+      "Friends"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Program में Support Material और Team Guidance किसे दी जाती है?",
+    options: [
+      "Women Partners को",
+      "Parents को",
+      "Students को",
+      "Teachers को"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Women Partner का मुख्य कार्य क्या है?",
+    options: [
+      "लोगों से जुड़ना",
+      "बात करना",
+      "सीखते हुए आगे बढ़ना",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "यदि Contact Number आपके पास पहले से मौजूद है, तो आपको क्या करना चाहिए?",
+    options: [
+      "Work From Home Opportunity बतानी चाहिए",
+      "Exowa Product के बारे में बताना चाहिए",
+      "Lead Generate करनी चाहिए",
+      "Training देनी चाहिए"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "इस Training Script का सबसे महत्वपूर्ण संदेश क्या है?",
+    options: [
+      "Existing Contacts = Exowa Product, Company Leads = Work From Home Opportunity",
+      "सभी को केवल Exowa Product बताना है",
+      "सभी को केवल Work From Home Opportunity बतानी है",
+      "केवल Training पर ध्यान देना है"
+    ],
+    correctAnswer: 0
+  }
+] }
         ]
       },
       {

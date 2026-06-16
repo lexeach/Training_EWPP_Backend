@@ -173,25 +173,163 @@ correctAnswer: 0
 ]
 
           },
-        { 
-    videoId: "m1s1-v2",
-    title: "Program का उद्देश्य", 
-    url: "https://all-exowa-training-video.netlify.app/program_purpose.mp4", 
-    sequenceOrder: 2, 
-    quiz: [
-        {
-            question: "Exowa Women Partner Program शुरू करने के पीछे मुख्य सोच क्या है?",
-            options: [
-                "महिलाओं को नौकरी दिलाना",
-                "महिलाओं को सही अवसर, मार्गदर्शन और आत्मविश्वास देना",
-                "केवल बच्चों को पढ़ाना",
-                "केवल ऑनलाइन कोर्स बेचना"
-            ],
-            correctAnswer: 1
-        },
-        // ... (Repeat this for all other entries)
-    ]
+        
+       { videoId: "m1s1-v2",
+           title: "Program का उद्देश्य", 
+           url: "https://all-exowa-training-video.netlify.app/program_purpose.mp4", 
+           sequenceOrder: 2, 
+           quiz: [
+{
+question: "Exowa Women Partner Program शुरू करने के पीछे मुख्य सोच क्या है?",
+options: [
+"महिलाओं को नौकरी दिलाना",
+"महिलाओं को सही अवसर, मार्गदर्शन और आत्मविश्वास देना",
+"केवल बच्चों को पढ़ाना",
+"केवल ऑनलाइन कोर्स बेचना"
+],
+correctAnswer: 1
+},
+{
+question: "Program का मुख्य उद्देश्य क्या है?",
+options: [
+"महिलाओं को आत्मनिर्भर, आत्मविश्वासी और आर्थिक रूप से सशक्त बनाना",
+"महिलाओं को सरकारी नौकरी दिलाना",
+"महिलाओं को विदेश भेजना",
+"केवल शिक्षा देना"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa Women Partner Program महिलाओं को किस प्रकार काम करने का अवसर देता है?",
+options: [
+"ऑफिस जाकर",
+"फैक्ट्री में",
+"घर बैठे सम्मान के साथ",
+"केवल पार्ट-टाइम स्कूल में"
+],
+correctAnswer: 2
+},
+{
+question: "Program के माध्यम से महिलाएं क्या बना सकती हैं?",
+options: [
+"अपनी अलग पहचान",
+"केवल नया मोबाइल",
+"नई डिग्री",
+"केवल बैंक खाता"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa का एक महत्वपूर्ण उद्देश्य क्या है?",
+options: [
+"हर घर तक बेहतर शिक्षा पहुंचाना",
+"हर घर में इंटरनेट लगवाना",
+"हर घर में कंप्यूटर देना",
+"हर घर में ट्यूशन खोलना"
+],
+correctAnswer: 0
+},
+{
+question: "आज कई बच्चे किस कमी के कारण पीछे रह जाते हैं?",
+options: [
+"मोबाइल की कमी",
+"Practice और Guidance की कमी",
+"स्कूल की कमी",
+"दोस्तों की कमी"
+],
+correctAnswer: 1
+},
+{
+question: "Exowa के माध्यम से महिलाएं किसका हिस्सा बन सकती हैं?",
+options: [
+"बच्चों के बेहतर भविष्य का",
+"केवल स्कूल प्रबंधन का",
+"सरकारी योजनाओं का",
+"खेल प्रतियोगिता का"
+],
+correctAnswer: 0
+},
+{
+question: "Program के जरिए महिलाओं को क्या अवसर मिलता है?",
+options: [
+"Income Opportunity",
+"Leadership Skills Development",
+"Communication Confidence",
+"उपरोक्त सभी"
+],
+correctAnswer: 3
+},
+{
+question: "Program में कौन-सी Skill विकसित होती है?",
+options: [
+"Leadership Skills",
+"Driving Skills",
+"Coding Skills",
+"Cooking Skills"
+],
+correctAnswer: 0
+},
+{
+question: "Program महिलाओं में क्या बढ़ाने में मदद करता है?",
+options: [
+"Communication Confidence",
+"Exam Marks",
+"Sports Performance",
+"Travel Experience"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa Women Partner Program के माध्यम से क्या बनता है?",
+options: [
+"Women Support Community",
+"Political Group",
+"Sports Club",
+"Entertainment Club"
+],
+correctAnswer: 0
+},
+{
+question: "Exowa का लक्ष्य केवल क्या नहीं है?",
+options: [
+"Learning",
+"Community Building",
+"Earning",
+"Confidence Development"
+],
+correctAnswer: 2
+},
+{
+question: "Exowa महिलाओं को किस प्रकार का मंच देना चाहता है?",
+options: [
+"सम्मान, आत्मविश्वास और सफलता का मंच",
+"केवल नौकरी का मंच",
+"केवल शिक्षा का मंच",
+"केवल मनोरंजन का मंच"
+],
+correctAnswer: 0
+},
+{
+question: "जब एक महिला सशक्त होती है, तो क्या मजबूत बनता है?",
+options: [
+"केवल परिवार",
+"केवल समाज",
+"परिवार और समाज दोनों",
+"केवल व्यवसाय"
+],
+correctAnswer: 2
+},
+{
+question: "Exowa Women Partner Program का संदेश क्या है?",
+options: [
+"सशक्त महिला, सशक्त परिवार, सशक्त समाज",
+"पढ़ो और आगे बढ़ो",
+"हर घर में शिक्षा",
+"कमाओ और बचाओ"
+],
+correctAnswer: 0
 }
+]},
           { videoId: "m1s1-v3", title: "Women empowerment vision", url: "https://all-exowa-training-video.netlify.app/women_empowerment_vision.mp4", sequenceOrder: 3, quiz: [] },
           { videoId: "m1s1-v4", title: "आपको क्या करना है ?", url: "https://all-exowa-training-video.netlify.app/aapko_kya_karna_hai.mp4", sequenceOrder: 4, quiz: [] }
         ]

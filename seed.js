@@ -1310,7 +1310,201 @@ correctAnswer: 2
         subModuleId: "m1-s3",
         title: "SubModule 1C: Success Mindset for Women Partners",
         videos: [
-          { videoId: "m1s3-v1", title: "डर कैसे हटाएं", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 9, quiz: [] },
+          { videoId: "m1s3-v1", title: "डर कैसे हटाएं", 
+           url: "https://all-exowa-training-video.netlify.app/dar_Par_kabu_payen.mp4", 
+           sequenceOrder: 9, 
+           quiz: [
+  {
+    question: "जब हम कोई नया काम शुरू करते हैं, तो डर लगना कैसा माना गया है?",
+    options: [
+      "कमजोरी",
+      "असफलता",
+      "बिल्कुल सामान्य",
+      "गलत"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "शुरुआत में महिलाओं के मन में कौन-सा सवाल आ सकता है?",
+    options: [
+      "क्या मैं कर पाऊंगी?",
+      "अगर लोग मना कर दें तो?",
+      "अगर मुझसे गलती हो गई तो?",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "स्क्रिप्ट के अनुसार डर क्या है?",
+    options: [
+      "एक कमजोरी",
+      "एक नई शुरुआत का संकेत",
+      "सफलता की निशानी",
+      "हार का कारण"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "हर सफल महिला ने अपने जीवन में किसका सामना किया है?",
+    options: [
+      "केवल सफलता का",
+      "डर का",
+      "असफलता का",
+      "प्रतियोगिता का"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "सफल लोगों और रुक जाने वाले लोगों में मुख्य अंतर क्या है?",
+    options: [
+      "सफल लोग कभी नहीं डरते",
+      "सफल लोग डर के बावजूद आगे बढ़ते हैं",
+      "सफल लोग ज्यादा पढ़े-लिखे होते हैं",
+      "सफल लोग ज्यादा पैसे वाले होते हैं"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "डर अक्सर किस कारण से आता है?",
+    options: [
+      "किस्मत से",
+      "जानकारी और अनुभव की कमी से",
+      "उम्र से",
+      "दूसरों की वजह से"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "जैसे-जैसे आप सीखती हैं, Practice करती हैं और लोगों से बात करती हैं, क्या बढ़ता है?",
+    options: [
+      "डर",
+      "Confusion",
+      "Confidence",
+      "दूरी"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "डर हटाने का पहला तरीका क्या बताया गया है?",
+    options: [
+      "लोगों से बचना",
+      "Positive Self Talk",
+      "काम छोड़ देना",
+      "इंतजार करना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Positive Self Talk में स्वयं से क्या कहना चाहिए?",
+    options: [
+      "मैं सीख सकती हूँ",
+      "मैं कर सकती हूँ",
+      "हर Expert कभी Beginner था",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "डर हटाने का दूसरा तरीका क्या है?",
+    options: [
+      "बड़ा कदम उठाना",
+      "छोटे कदमों से शुरुआत करना",
+      "दूसरों पर निर्भर रहना",
+      "रुक जाना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "शुरुआत में सबसे पहले किससे बात करने की सलाह दी गई है?",
+    options: [
+      "10 Parents से",
+      "5 Parents से",
+      "एक Parent से",
+      "किसी से नहीं"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "बड़ी सफलता किससे शुरू होती है?",
+    options: [
+      "बड़े निवेश से",
+      "छोटे-छोटे कदमों से",
+      "किस्मत से",
+      "अनुभव से"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "गलतियाँ क्या होती हैं?",
+    options: [
+      "Failure",
+      "सीखने का हिस्सा",
+      "कमजोरी",
+      "समय की बर्बादी"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "जितनी अधिक Practice करेंगे, क्या होगा?",
+    options: [
+      "डर बढ़ेगा",
+      "डर कम होगा",
+      "काम कठिन होगा",
+      "कुछ नहीं बदलेगा"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "सबसे जरूरी बात क्या बताई गई है?",
+    options: [
+      "खुद पर विश्वास रखें",
+      "दूसरों की बात सुनें",
+      "काम टालें",
+      "जल्दी सफलता चाहें"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa Women Partner Program में आपको क्या मिलेगा?",
+    options: [
+      "Training",
+      "Guidance",
+      "Scripts और पूरा Support",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "स्क्रिप्ट के अनुसार 'डर के आगे' क्या होता है?",
+    options: [
+      "असफलता",
+      "Growth और Success",
+      "समस्या",
+      "रुकावट"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "डर को किस चीज़ की दीवार नहीं बनने देना चाहिए?",
+    options: [
+      "परिवार",
+      "सपनों के रास्ते",
+      "दोस्ती",
+      "नौकरी"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Training के अंत में महिलाओं को क्या संदेश दिया गया है?",
+    options: [
+      "अकेले आगे बढ़ें",
+      "डरकर काम करें",
+      "मजबूती के साथ आगे बढ़ें और विश्वास रखें कि पूरी टीम आपके साथ है",
+      "पहले अनुभव प्राप्त करें"
+    ],
+    correctAnswer: 2
+  }
+] },
           { videoId: "m1s3-v2", title: "Communication confidence", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 10, quiz: [] },
           { videoId: "m1s3-v3", title: "“मैं नहीं कर पाऊंगी” mindset खत्म करना", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 11, quiz: [] },
           { videoId: "m1s3-v4", title: "Daily discipline", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 12, quiz: [] }

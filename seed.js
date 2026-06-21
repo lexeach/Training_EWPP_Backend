@@ -1700,7 +1700,211 @@ correctAnswer: 2
     correctAnswer: 1
   }
 ] },
-          { videoId: "m1s3-v3", title: "“मैं नहीं कर पाऊंगी” mindset खत्म करना", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 11, quiz: [] },
+          { videoId: "m1s3-v3", title: "“मैं नहीं कर पाऊंगी” mindset खत्म करना", 
+           url: "https://all-exowa-training-video.netlify.app/mai_nahi_kar_paungi.mp4", 
+           sequenceOrder: 11, 
+           quiz: [
+  {
+    question: "'मैं नहीं कर पाऊंगी' Mindset महिलाओं को सबसे ज्यादा किस चीज़ से रोकता है?",
+    options: [
+      "नई चीज़ें सीखने से",
+      "आगे बढ़ने और सफलता पाने से",
+      "परिवार संभालने से",
+      "पढ़ाई करने से"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "स्क्रिप्ट के अनुसार सबसे खतरनाक क्या है?",
+    options: [
+      "असफल होना",
+      "गलती करना",
+      "कोशिश करने से पहले हार मान लेना",
+      "धीरे सीखना"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "पहली बार साइकिल चलाते समय क्या सब कुछ आता था?",
+    options: [
+      "हाँ",
+      "नहीं",
+      "कभी-कभी",
+      "सिर्फ कुछ लोगों को"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "पहली बार मोबाइल चलाते समय क्या हम Expert होते हैं?",
+    options: [
+      "हाँ",
+      "नहीं",
+      "हमेशा",
+      "सिर्फ पढ़े-लिखे लोग"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "स्क्रिप्ट के अनुसार हर सफल महिला ने शुरुआत कहाँ से की होती है?",
+    options: [
+      "Experience से",
+      "Zero से",
+      "Training Centre से",
+      "College से"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "'मैं नहीं कर पाऊंगी' वास्तव में क्या है?",
+    options: [
+      "सच्चाई",
+      "अनुभव",
+      "डर",
+      "असफलता"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "'मैं नहीं कर पाऊंगी' की जगह क्या कहना चाहिए?",
+    options: [
+      "मैं कोशिश नहीं करूंगी",
+      "मैं सीखकर कर पाऊंगी",
+      "मुझे नहीं आता",
+      "मैं बाद में करूंगी"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Exowa Women Partner Program में क्या उपलब्ध कराया जाता है?",
+    options: [
+      "Step-by-Step Training",
+      "Calling Scripts",
+      "Team Support और Guidance",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "इस Program में पहले दिन से सब कुछ जानना जरूरी है?",
+    options: [
+      "हाँ",
+      "नहीं",
+      "सिर्फ कुछ लोगों के लिए",
+      "केवल Leaders के लिए"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "सबसे जरूरी क्या है?",
+    options: [
+      "पहले से Expert होना",
+      "सीखने के लिए तैयार होना",
+      "Sales का अनुभव होना",
+      "अंग्रेज़ी बोलना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "गलती करना किसका हिस्सा है?",
+    options: [
+      "Failure",
+      "सीखने की प्रक्रिया",
+      "कमजोरी",
+      "हार"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "जो लोग आगे बढ़ते हैं, वे क्या करते हैं?",
+    options: [
+      "गलती करने से बचते हैं",
+      "सीखते हैं, गलती करते हैं और बेहतर बनते हैं",
+      "काम छोड़ देते हैं",
+      "दूसरों पर निर्भर रहते हैं"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "आज की सफल महिला ने सफलता की शुरुआत किस फैसले से की थी?",
+    options: [
+      "मैं नहीं कर पाऊंगी",
+      "मैं कोशिश करूंगी",
+      "मैं बाद में सीखूंगी",
+      "मैं अकेले काम करूंगी"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "स्क्रिप्ट के अनुसार रोज़ अपने मन में क्या दोहराना चाहिए?",
+    options: [
+      "मैं सीख सकती हूँ",
+      "मैं आगे बढ़ सकती हूँ",
+      "मैं सफल हो सकती हूँ",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "आज आपको किस चीज़ की जरूरत नहीं है?",
+    options: [
+      "सीखने की",
+      "Practice की",
+      "Perfect बनने की",
+      "आत्मविश्वास की"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "बड़ी सफलता किससे बनती है?",
+    options: [
+      "एक ही बड़े कदम से",
+      "छोटे-छोटे लगातार कदमों से",
+      "किस्मत से",
+      "पैसों से"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Exowa Women Partner Program का विश्वास क्या है?",
+    options: [
+      "हर महिला में सफलता की क्षमता होती है",
+      "सिर्फ Experienced महिलाएं सफल होती हैं",
+      "सिर्फ Graduates सफल होती हैं",
+      "सिर्फ Sales करने वाले सफल होते हैं"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "सफलता के लिए क्या जरूरी है?",
+    options: [
+      "सही अवसर",
+      "सही मार्गदर्शन",
+      "खुद पर विश्वास",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Final Message के अनुसार सफल महिलाएं क्यों सफल होती हैं?",
+    options: [
+      "उन्हें कभी डर नहीं लगता",
+      "वे डर के बावजूद आगे बढ़ती रहती हैं",
+      "वे हमेशा Expert होती हैं",
+      "वे कभी गलती नहीं करतीं"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "इस Training का सबसे महत्वपूर्ण संदेश क्या है?",
+    options: [
+      "'मैं नहीं कर पाऊंगी' कहना",
+      "'मैं सीखकर जरूर कर पाऊंगी' कहना",
+      "काम शुरू करने से पहले हार मान लेना",
+      "गलती करने से डरना"
+    ],
+    correctAnswer: 1
+  }
+] },
           { videoId: "m1s3-v4", title: "Daily discipline", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 12, quiz: [] }
         ]
       }

@@ -974,7 +974,7 @@ correctAnswer: 2
 }
 ]
  },
-          { videoId: "m1s2-v3", title: "Success Mindset for Women Partner", 
+          { videoId: "m1s2-v3", title: "Strategic Mindset for EWPP Partners", 
            url: "https://all-exowa-training-video.netlify.app/success_Ka_mindset.mp4", 
            sequenceOrder: 7, 
            quiz: [

@@ -975,7 +975,161 @@ correctAnswer: 2
 ]
  },
           { videoId: "m1s2-v3", title: "बिना investment business mindset", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 7, quiz: [] },
-          { videoId: "m1s2-v4", title: "Housewives भी क्यों सफल हो सकती हैं", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 8, quiz: [] }
+          { videoId: "m1s2-v4", title: "Housewives भी क्यों सफल हो सकती हैं",
+           url: "https://all-exowa-training-video.netlify.app/kya_homemaker_kaam_kar_sakti_hain.mp4", 
+           sequenceOrder: 8, 
+           quiz: [
+  {
+    question: "क्या केवल Highly Educated या Job करने वाली महिलाएं ही Exowa Women Partner Program में सफल हो सकती हैं?",
+    options: [
+      "हाँ",
+      "नहीं",
+      "केवल Graduate महिलाएं",
+      "केवल Experienced महिलाएं"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Script के अनुसार सफलता किससे आती है?",
+    options: [
+      "बड़ी Degree से",
+      "Corporate Experience से",
+      "सीखने की इच्छा, लोगों को समझने की क्षमता और मेहनत से",
+      "केवल पैसे से"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Housewives में कौन-सी विशेषता स्वाभाविक रूप से होती है?",
+    options: [
+      "परिवार को संभालना",
+      "जिम्मेदारियों को Manage करना",
+      "लोगों की भावनाओं को समझना",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "इस Program में सबसे अधिक कौन-सी Skills काम आती हैं?",
+    options: [
+      "Management और Communication Skills",
+      "Coding Skills",
+      "Typing Speed",
+      "Accounting"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Housewives Parents से बेहतर Connect क्यों कर पाती हैं?",
+    options: [
+      "वे परिवार और बच्चों की जरूरतों को समझती हैं",
+      "वे Teacher होती हैं",
+      "वे अधिक पढ़ी-लिखी होती हैं",
+      "वे केवल Marketing जानती हैं"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Housewives में निम्न में से कौन-सी Quality मजबूत होती है?",
+    options: [
+      "Trust Build करना",
+      "Relationship Maintain करना",
+      "Dedication",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Exowa Women Partner Program में आपको क्या दिया जाता है?",
+    options: [
+      "Step-by-Step Training",
+      "Calling Script",
+      "Parents से Connect करना",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Success के लिए सबसे जरूरी क्या है?",
+    options: [
+      "Positive Attitude",
+      "Consistency",
+      "सीखने की इच्छा",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Script के अनुसार सफलता के लिए Degree से ज्यादा क्या मायने रखता है?",
+    options: [
+      "Experience",
+      "Dedication",
+      "English Language",
+      "Computer Knowledge"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "बहुत-सी सफल महिलाओं ने अपनी शुरुआत किस रूप में की थी?",
+    options: [
+      "Teacher",
+      "Business Woman",
+      "Housewife",
+      "Corporate Employee"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "उनकी जिंदगी किस वजह से बदली?",
+    options: [
+      "सही अवसर और आत्मविश्वास",
+      "Lottery",
+      "सरकारी नौकरी",
+      "विदेश जाने से"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "Exowa का विश्वास क्या है?",
+    options: [
+      "हर महिला में सफलता की क्षमता होती है",
+      "केवल पढ़ी-लिखी महिलाएं सफल होती हैं",
+      "केवल नौकरी करने वाली महिलाएं सफल होती हैं",
+      "केवल अनुभवी महिलाएं सफल होती हैं"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "महिलाओं को सफलता के लिए किसकी आवश्यकता है?",
+    options: [
+      "सही Platform",
+      "सही Guidance",
+      "खुद पर विश्वास",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Script के अनुसार Housewife होना क्या है?",
+    options: [
+      "कमजोरी",
+      "बहुत बड़ी ताकत",
+      "रुकावट",
+      "सीमित अवसर"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Training के अंत में महिलाओं को क्या संदेश दिया गया है?",
+    options: [
+      "डरकर काम करें",
+      "विश्वास के साथ आगे बढ़ें, हम आपकी सफलता के लिए प्रतिबद्ध हैं",
+      "केवल Degree पूरी करें",
+      "पहले नौकरी खोजें"
+    ],
+    correctAnswer: 1
+  }
+] }
         ]
       },
       {

@@ -1505,7 +1505,201 @@ correctAnswer: 2
     correctAnswer: 2
   }
 ] },
-          { videoId: "m1s3-v2", title: "Communication confidence", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 10, quiz: [] },
+          { videoId: "m1s3-v2", title: "Communication confidence", 
+           url: "https://all-exowa-training-video.netlify.app/communication_skill.mp4", 
+           sequenceOrder: 10, 
+           quiz: [
+  {
+    question: "Communication Confidence का अर्थ क्या है?",
+    options: [
+      "अंग्रेज़ी में बोलना",
+      "लोगों से आत्मविश्वास के साथ बात करना",
+      "तेज़ आवाज़ में बोलना",
+      "केवल Presentation देना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Communication को सबसे अधिक क्या कमजोर बनाता है?",
+    options: [
+      "कम पढ़ाई",
+      "डर और घबराहट",
+      "कम समय",
+      "मोबाइल"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "स्क्रिप्ट के अनुसार Communication का सही अर्थ क्या है?",
+    options: [
+      "Perfect बोलना",
+      "अंग्रेज़ी में बात करना",
+      "अपनी बात को सरल, स्पष्ट और विश्वास के साथ रखना",
+      "ज्यादा बोलना"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Parents किस प्रकार के व्यक्ति की बात सुनना पसंद करते हैं?",
+    options: [
+      "Professional Speaker",
+      "Celebrity",
+      "ईमानदारी से बात करने वाला और उनकी जरूरत समझने वाला व्यक्ति",
+      "Teacher"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Parent से बात करते समय पहला Golden Rule क्या है?",
+    options: [
+      "तेज़ बोलना",
+      "मुस्कुराकर बात करना",
+      "लंबी बात करना",
+      "केवल Product बताना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Communication का महत्वपूर्ण हिस्सा क्या है?",
+    options: [
+      "सिर्फ बोलना",
+      "सिर्फ सुनना",
+      "सुनना और समझना",
+      "Presentation देना"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Parent अपनी समस्या बताए तो क्या करना चाहिए?",
+    options: [
+      "बीच में रोक देना",
+      "पहले ध्यान से सुनना, फिर जवाब देना",
+      "तुरंत Product बताना",
+      "Call समाप्त कर देना"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "बात करते समय किस प्रकार की भाषा का प्रयोग करना चाहिए?",
+    options: [
+      "कठिन भाषा",
+      "तकनीकी भाषा",
+      "सरल और स्पष्ट भाषा",
+      "केवल अंग्रेज़ी"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Confidence किससे आता है?",
+    options: [
+      "जन्म से",
+      "Practice से",
+      "Degree से",
+      "किस्मत से"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "अगर पहली Call अच्छी नहीं जाए तो क्या करना चाहिए?",
+    options: [
+      "काम छोड़ देना",
+      "घबराना",
+      "अगली Call बेहतर करने की कोशिश करना",
+      "फोन बंद कर देना"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "हर बातचीत हमें क्या देती है?",
+    options: [
+      "पैसे",
+      "नई सीख",
+      "सर्टिफिकेट",
+      "Promotion"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Communication Confidence बढ़ाने के लिए रोज़ क्या करना चाहिए?",
+    options: [
+      "Practice",
+      "Script पढ़ना",
+      "लोगों से बात करना",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "रोज़ कितनी देर जोर से बोलने की Practice करने की सलाह दी गई है?",
+    options: [
+      "2 मिनट",
+      "5 मिनट",
+      "15 मिनट",
+      "30 मिनट"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "स्क्रिप्ट के अनुसार लोगों का भरोसा किस पर होता है?",
+    options: [
+      "Perfect लोगों पर",
+      "अमीर लोगों पर",
+      "Genuine और Confident लोगों पर",
+      "Celebrity पर"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Exowa Women Partner Program केवल क्या नहीं सिखाता?",
+    options: [
+      "Communication",
+      "Product",
+      "लोगों से प्रभावशाली तरीके से बात करना",
+      "सिर्फ Product नहीं, बल्कि Communication भी सिखाता है"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "जब आपकी Communication मजबूत होती है तो क्या बढ़ता है?",
+    options: [
+      "Confidence",
+      "Results",
+      "Success",
+      "उपरोक्त सभी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Final Message के अनुसार अधिक प्रभावशाली क्या होता है?",
+    options: [
+      "घबराहट के साथ बोले गए सौ शब्द",
+      "आत्मविश्वास के साथ बोला गया एक साधारण वाक्य",
+      "लंबा भाषण",
+      "तेज़ आवाज़"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Communication Confidence मजबूत करने का सबसे अच्छा तरीका क्या है?",
+    options: [
+      "Practice करना",
+      "डरना",
+      "कम लोगों से बात करना",
+      "केवल Training देखना"
+    ],
+    correctAnswer: 0
+  },
+  {
+    question: "इस Training का मुख्य संदेश क्या है?",
+    options: [
+      "Perfect बनने की कोशिश करें",
+      "Practice करें, बोलें और हर दिन Communication Confidence बढ़ाएं",
+      "सिर्फ Product याद करें",
+      "कम Call करें"
+    ],
+    correctAnswer: 1
+  }
+] },
           { videoId: "m1s3-v3", title: "“मैं नहीं कर पाऊंगी” mindset खत्म करना", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 11, quiz: [] },
           { videoId: "m1s3-v4", title: "Daily discipline", url: "https://www.w3schools.com/html/movie.mp4", sequenceOrder: 12, quiz: [] }
         ]

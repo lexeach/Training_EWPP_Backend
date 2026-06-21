@@ -974,7 +974,181 @@ correctAnswer: 2
 }
 ]
  },
-          { videoId: "m1s2-v3", title: "बिना investment business mindset", url: "https://www.w3schools.com/html/mov_bbb.mp4", sequenceOrder: 7, quiz: [] },
+          { videoId: "m1s2-v3", title: "Success Mindset for Women Partner", 
+           url: "https://all-exowa-training-video.netlify.app/success_Ka_mindset.mp4", 
+           sequenceOrder: 7, 
+           quiz: [
+  {
+    question: "किसी भी महिला की सफलता मुख्य रूप से किस पर निर्भर करती है?",
+    options: [
+      "उसकी Degree पर",
+      "उसके काम पर",
+      "उसकी सोच (Mindset) पर",
+      "उसकी किस्मत पर"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Script के अनुसार, 'जैसी सोच होती है, वैसी ही क्या बनती है?'",
+    options: [
+      "कमाई",
+      "दिशा",
+      "पहचान",
+      "सफलता"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Exowa Women Partner Program में सफलता के लिए सबसे पहले क्या आवश्यक है?",
+    options: [
+      "बड़ी Degree",
+      "Corporate Experience",
+      "Positive और Growth Mindset",
+      "अधिक पैसे"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Success Mindset का क्या अर्थ है?",
+    options: [
+      "दूसरों से आगे निकलना",
+      "खुद पर विश्वास रखना, सीखने के लिए तैयार रहना और कठिनाइयों के बावजूद आगे बढ़ना",
+      "केवल अधिक पैसा कमाना",
+      "किसी की मदद न लेना"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "हर सफल महिला की पहली आदत क्या होती है?",
+    options: [
+      "ज्यादा काम करना",
+      "अपना लक्ष्य साफ रखना",
+      "केवल पैसा कमाना",
+      "दूसरों से तुलना करना"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "सफल महिलाएं Problems आने पर क्या करती हैं?",
+    options: [
+      "हार मान लेती हैं",
+      "रुक जाती हैं",
+      "Solutions ढूंढती हैं",
+      "दूसरों को दोष देती हैं"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "लगातार सीखना किसका हिस्सा है?",
+    options: [
+      "Growth",
+      "Luck",
+      "Experience",
+      "Competition"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "नई Skills, नई जानकारी और नई Communication Techniques सीखना किसका हिस्सा है?",
+    options: [
+      "Competition",
+      "Growth",
+      "Marketing",
+      "Promotion"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Success के लिए महत्वपूर्ण आदत क्या है?",
+    options: [
+      "Networking",
+      "Discipline और Consistency",
+      "Marketing",
+      "Investment"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Script के अनुसार सबसे जरूरी क्या है?",
+    options: [
+      "Self Confidence",
+      "Luck",
+      "Corporate Experience",
+      "Degree"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "महिलाओं को अपने आप से क्या कहना चाहिए?",
+    options: [
+      "मैं नहीं कर सकती",
+      "शायद मैं कर पाऊँ",
+      "हाँ, मैं कर सकती हूँ",
+      "कोई और करेगा"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "शुरुआत में डर और गलतियाँ होना कैसा माना गया है?",
+    options: [
+      "गलत",
+      "असफलता",
+      "Normal",
+      "कमजोरी"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "Script के अनुसार Success सिर्फ क्या नहीं है?",
+    options: [
+      "Income",
+      "Knowledge",
+      "Learning",
+      "Experience"
+    ],
+    correctAnswer: 1
+  },
+  {
+    question: "Script के अनुसार Success का वास्तविक अर्थ क्या है?",
+    options: [
+      "केवल Income",
+      "आत्मविश्वास, सम्मान, परिवार का गर्व और सपनों की खुशी",
+      "केवल सम्मान",
+      "केवल प्रसिद्धि"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Exowa Women Partner Program महिलाओं को क्या विकसित करने में मदद करता है?",
+    options: [
+      "सिर्फ Selling Skills",
+      "सिर्फ Communication Skills",
+      "एक सफल सोच (Success Mindset)",
+      "सिर्फ Income"
+    ],
+    correctAnswer: 3
+  },
+  {
+    question: "जब एक महिला अपनी सोच बदलती है, तब क्या बदलने लगता है?",
+    options: [
+      "केवल उसकी Income",
+      "उसकी पूरी जिंदगी",
+      "केवल उसका परिवार",
+      "केवल उसकी नौकरी"
+    ],
+    correctAnswer: 2
+  },
+  {
+    question: "Training के अंत में महिलाओं को क्या संदेश दिया गया है?",
+    options: [
+      "आप अकेली हैं",
+      "हार मत मानिए",
+      "मजबूती के साथ आगे बढ़िए, हमारी पूरी टीम आपके साथ है",
+      "केवल Training पूरी कीजिए"
+    ],
+    correctAnswer: 3
+  }
+] },
           { videoId: "m1s2-v4", title: "Housewives भी क्यों सफल हो सकती हैं",
            url: "https://all-exowa-training-video.netlify.app/kya_homemaker_kaam_kar_sakti_hain.mp4", 
            sequenceOrder: 8, 

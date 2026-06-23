@@ -1,9 +1,8 @@
 // backend/seed.js
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import { Module } from './models/Schemas.js'; // यहाँ .js लगाना जरूरी है
 import { DailyDisciplineQuiz } from './quizData/DailyDiscipline.js';
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const { Module } = require('./models/Schemas');
-
 dotenv.config();
 
 // 🟢 फिक्स: पहले वीडियो के अंदर Quiz Schema डेटा को शामिल कर दिया गया है

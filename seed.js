@@ -1,5 +1,5 @@
 // backend/seed.js
-import { DailyDisciplineQuiz } from '../quizData/DailyDiscipline.js';
+import { DailyDisciplineQuiz } from './quizData/DailyDiscipline.js';
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const { Module } = require('./models/Schemas');

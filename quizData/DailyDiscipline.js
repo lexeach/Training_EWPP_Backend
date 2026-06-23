@@ -1,5 +1,5 @@
 // src/quizData/DailyDiscipline.js
-export const DailyDisciplineQuiz: [
+export const DailyDisciplineQuiz = [
   {
     question: "Daily Discipline का क्या अर्थ है?",
     options: [

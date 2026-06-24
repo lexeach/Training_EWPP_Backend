@@ -12,14 +12,20 @@ const registerUser = async (req, res) => {
     const { name, email, password, phone } = req.body;
     
     const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: 'यह ईमेल पहले से रजिस्टर्ड है।' });
+    if (userExists) return res.status(400).json({ message: 'Email is already registered.' });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await User.create({ name, email, password: hashedPassword });
+    // 🟢 यहाँ 'phone' को डेटाबेस में सेव किया जा रहा है
+    const user = await User.create({ 
+      name, 
+      email, 
+      password: hashedPassword,
+      phone // सुनिश्चित करें कि आपके User Model में 'phone' फील्ड है
+    });
 
-    res.status(201).json({ message: 'चैनल पार्टनर का ACCOUNT बन गया है।' });
+    res.status(201).json({ message: 'Channel partner account created successfully.' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -38,13 +44,14 @@ const loginUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        phone: user.phone, // लॉगिन रिस्पॉन्स में भी फोन भेज दिया है
         isPaid: user.isPaid || false, 
         completedVideos: user.completedVideos,
         currentUnlockedVideo: user.currentUnlockedVideo,
         token
       });
     } else {
-      res.status(401).json({ message: 'गलत ईमेल या पासवर्ड।' });
+      res.status(401).json({ message: 'Invalid email or password.' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -57,11 +64,11 @@ const manualApproveUser = async (req, res) => {
     const { email, secretKey } = req.body;
 
     if (!secretKey || secretKey !== MASTER_SECRET_KEY) {
-      return res.status(403).json({ message: '❌ अमान्य एडमिन सीक्रेट की! आप अधिकृत नहीं हैं।' });
+      return res.status(403).json({ message: 'Invalid admin secret key!' });
     }
 
     if (!email) {
-      return res.status(400).json({ message: 'कृपया ईमेल आईडी प्रदान करें।' });
+      return res.status(400).json({ message: 'Please provide an email ID.' });
     }
 
     const targetEmail = email.trim().toLowerCase();
@@ -71,20 +78,20 @@ const manualApproveUser = async (req, res) => {
       { email: targetEmail },
       { 
         isPaid: true,
-        activatedAt: new Date() // 📅 करंट डेट और टाइम सेव होगा
+        activatedAt: new Date()
       },
       { new: true }
     );
 
     if (!updatedUser) {
-      return res.status(404).json({ message: 'इस ईमेल आईडी से कोई यूज़र नहीं मिला।' });
+      return res.status(404).json({ message: 'No user found with this email ID.' });
     }
 
-    console.log(`[ADMIN ACTION] User ${updatedUser.email} को मैनुअली एक्टिवेट कर दिया गया है।`);
+    console.log(`[ADMIN ACTION] User ${updatedUser.email} has been manually activated.`);
 
     res.status(200).json({
       success: true,
-      message: `🎉 यूज़र ${updatedUser.name} (${updatedUser.email}) को सफलतापूर्वक एक्टिवेट कर दिया गया है!`,
+      message: `User ${updatedUser.name} (${updatedUser.email}) activated successfully!`,
       user: {
         _id: updatedUser._id,
         name: updatedUser.name,
@@ -106,10 +113,9 @@ const getAllUsers = async (req, res) => {
     const { secretKey } = req.body;
 
     if (!secretKey || secretKey !== MASTER_SECRET_KEY) {
-      return res.status(403).json({ message: '❌ अमान्य एडमिन सीक्रेट की!' });
+      return res.status(403).json({ message: 'Invalid admin secret key!' });
     }
 
-    // पासवर्ड छोड़कर बाकी पूरा डेटा निकालेंगे और नए यूज़र्स को सबसे ऊपर दिखाएंगे (sort by createdAt)
     const users = await User.find({}, '-password').sort({ createdAt: -1 });
     
     res.status(200).json({ success: true, users });

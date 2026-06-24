@@ -72,10 +72,18 @@ router.post('/send-signup-otp', async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpCache.set(email, { otp, expires: Date.now() + 10 * 60 * 1000 });
 
-    const subject = 'EWPP Portal - ईमेल वेरिफिकेशन OTP';
-    const htmlBody = `<h3>EWPP ट्रेनिंग पोर्टल में आपका स्वागत है</h3>
-                      <p>साइनअप पूरा करने के लिए आपका OTP नीचे दिया गया है:</p>
-                      <h2 style="color: #0284c7; letter-spacing: 2px;">${otp}</h2>`;
+    const subject = 'Your OTP for EWPP Portal Verification';
+const htmlBody = `
+  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <h2 style="color: #0284c7;">Verification code for EWPP Training Portal</h2>
+    <p>Dear Partner,</p>
+    <p>Please use the following One-Time Password (OTP) to complete your registration:</p>
+    <h1 style="background: #f4f4f4; padding: 10px; display: inline-block; border-radius: 5px;">${otp}</h1>
+    <p>This code is valid for a limited time. If you did not request this, please ignore this email.</p>
+    <br>
+    <p>Best regards,<br>EWPP Team</p>
+  </div>
+`;
 
     // 🚀 Nodemailer की जगह नया API फंक्शन कॉल
     await sendGmailViaAPI(email, subject, htmlBody);

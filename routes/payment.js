@@ -84,21 +84,25 @@ router.post('/verify', async (req, res) => {
       if (!updatedUser) return res.status(404).json({ success: false, message: "User not found" });
 
       // 🟢 पेमेंट के बाद वेलकम ईमेल भेजें
-      try {
-        const welcomeHtml = `
-          <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <h2 style="color: #0284c7;">Welcome aboard, ${updatedUser.name}!</h2>
-            <p>Your payment has been successfully received, and your training access is now <b>activated</b>.</p>
-            <p>You can now log in to your dashboard to start learning.</p>
-            <br>
-            <p>Happy Learning!<br><b>The EWPP Team</b></p>
-          </div>
-        `;
-        await sendEmail(updatedUser.email, 'Welcome to EWPP Training Portal! 🎉', welcomeHtml);
-        console.log(`[SUCCESS] Welcome email sent to ${updatedUser.email}`);
-      } catch (emailErr) {
-        console.error("Welcome email failed:", emailErr);
-      }
+      // पेमेंट वेरिफिकेशन के अंदर का हिस्सा ऐसे अपडेट करें:
+try {
+  const welcomeHtml = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+      <h2 style="color: #0284c7;">Welcome aboard, ${updatedUser.name}!</h2>
+      <p>Your payment has been successfully received, and your training access is now <b>activated</b>.</p>
+      <p>You can now log in to your dashboard to start learning.</p>
+      <br>
+      <p>Happy Learning!<br><b>The EWPP Team</b></p>
+    </div>
+  `;
+  
+  // 🟢 यहाँ 'sendEmail' का इस्तेमाल करें जो आपने OAuth2 के साथ बनाया है
+  await sendEmail(updatedUser.email, 'Welcome to EWPP Training Portal! 🎉', welcomeHtml);
+  
+  console.log(`[SUCCESS] Welcome email sent via OAuth2 to ${updatedUser.email}`);
+} catch (emailErr) {
+  console.error("Welcome email failed:", emailErr);
+}
 
       return res.status(200).json({ success: true, message: "Paid Successfully", user: updatedUser });
     } else {

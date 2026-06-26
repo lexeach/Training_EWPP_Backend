@@ -4,9 +4,8 @@ const router = express.Router();
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
 
+// सीधे मोंगूज से रजिस्टर्ड मॉडल को उठाना
 const User = mongoose.model('User'); 
 
 const razorpay = new Razorpay({
@@ -14,58 +13,59 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// 🟢 OAuth2 ईमेल क्लाइंट सेटअप
-const OAuth2 = google.auth.OAuth2;
-const oauth2Client = new OAuth2(
-  process.env.OAUTH_CLIENT_ID,
-  process.env.OAUTH_CLIENT_SECRET,
-  "https://developers.google.com/oauthplayground"
-);
-oauth2Client.setCredentials({ refresh_token: process.env.OAUTH_REFRESH_TOKEN });
-
-// 📧 ईमेल भेजने का फंक्शन
-const sendEmail = async (to, subject, html) => {
-  const accessToken = await oauth2Client.getAccessToken();
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: process.env.EMAIL_USER,
-      clientId: process.env.OAUTH_CLIENT_ID,
-      clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-      accessToken: accessToken.token
-    }
-  });
-  return transporter.sendMail({ from: process.env.EMAIL_USER, to, subject, html });
-};
-
+// फ्रंटएंड को Key ID देने के लिए एंडपॉइंट
 router.get('/key', (req, res) => {
   res.status(200).json({ key: process.env.RAZORPAY_KEY_ID });
 });
 
+// 🎯 1. ऑर्डर क्रिएट करने का एंडपॉइंट
 router.post('/order', async (req, res) => {
   const { amount, userId } = req.body;
+  console.log("=========================================");
+  console.log("[BACKEND LOG] /order हिट हुआ। Received userId:", userId, "Amount:", amount);
+  console.log("=========================================");
+  
   try {
-    if (!userId) return res.status(400).json({ message: "userId is required" });
+    if (!userId) {
+      console.error("[BACKEND ERROR] /order में userId गायब है!");
+      return res.status(400).json({ message: "userId is required to create an order" });
+    }
+
     const options = {
       amount: amount * 100, 
       currency: "INR",
       receipt: `rcpt_${Date.now()}`, 
-      notes: { userId: userId.toString() }
+      notes: {
+        userId: userId.toString()
+      }
     };
+
     const order = await razorpay.orders.create(options);
+    if (!order) {
+      console.error("[BACKEND ERROR] Razorpay order object नहीं बन पाया");
+      return res.status(500).json({ message: "Order creation failed" });
+    }
+
+    console.log("[BACKEND LOG] Razorpay Order सफलतापूर्वक बना:", order.id);
     res.status(200).json(order);
   } catch (error) {
+    console.error("[BACKEND CATCH ERROR] Order Generation Exception:", error);
     res.status(500).json({ message: "Server Error during order generation" });
   }
 });
 
-// 🎯 पेमेंट वेरीफाई और वेलकम ईमेल एंडपॉइंट
+// 🎯 2. पेमेंट वेरीफाई करने का एंडपॉइंट (TRACKING LOGS ENABLED)
 router.post('/verify', async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId } = req.body;
   
+  console.log("=== 📥 BACKEND VERIFY STEP 1: REQUEST RECEIVED ===");
+  console.log("razorpay_order_id:", razorpay_order_id);
+  console.log("razorpay_payment_id:", razorpay_payment_id);
+  console.log("Frontend se aaya userId:", userId);
+  console.log("=================================================");
+
   try {
+    // सिग्नेचर वेरीफाई करना
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -73,42 +73,61 @@ router.post('/verify', async (req, res) => {
       .digest("hex");
 
     if (expectedSign === razorpay_signature) {
-      let finalUserId = userId || (await razorpay.orders.fetch(razorpay_order_id))?.notes?.userId;
+      console.log("=== ✅ BACKEND VERIFY STEP 2: SIGNATURE MATCHED ===");
+      
+      let finalUserId = userId;
+      
+      // बैकअप: अगर फ्रंटएंड से userId नहीं आया, तो रेजरपे नोट्स से निकालो
+      if (!finalUserId) {
+        console.log("[BACKEND LOG] req.body में userId नहीं मिला, Razorpay से ऑर्डर फेच कर रहे हैं...");
+        const orderDetails = await razorpay.orders.fetch(razorpay_order_id);
+        finalUserId = orderDetails?.notes?.userId;
+        console.log("[BACKEND LOG] Razorpay notes से निकाला गया finalUserId:", finalUserId);
+      }
 
+      if (!finalUserId) {
+        console.error("[BACKEND ERROR] ❌ किसी भी तरीके से userId नहीं मिल पाया!");
+        return res.status(400).json({ success: false, message: "User Identification Failed" });
+      }
+
+      console.log(`=== 🗄️ BACKEND VERIFY STEP 3: DB UPDATE START ===`);
+      console.log(`Targeting Database Document with _id: "${finalUserId}"`);
+
+      // 💡 यहाँ सबसे कड़क लॉगिंग है: पुराना डेटा क्या था और नया क्या हुआ
+      const oldUserDoc = await User.findById(finalUserId);
+      console.log("[DB QUERY] अपडेट से ठीक पहले पुराना isPaid स्टेटस:", oldUserDoc ? oldUserDoc.isPaid : "User Not Found");
+
+      // अब अपडेट मारते हैं
       const updatedUser = await User.findByIdAndUpdate(
         finalUserId,
         { isPaid: true },
-        { new: true }
+        { new: true } // true देने से यह मोंगोडीबी का लेटेस्ट अपडेटेड डॉक्यूमेंट लौटाता है
       );
       
-      if (!updatedUser) return res.status(404).json({ success: false, message: "User not found" });
+      if (!updatedUser) {
+        console.error(`[BACKEND ERROR] ❌ User ID: ${finalUserId} डेटाबेस में अपडेट नहीं हो सका (शायद ID गलत है)!`);
+        return res.status(404).json({ success: false, message: "User not found in database" });
+      }
 
-      // 🟢 पेमेंट के बाद वेलकम ईमेल भेजें
-      // पेमेंट वेरिफिकेशन के अंदर का हिस्सा ऐसे अपडेट करें:
-try {
-  const welcomeHtml = `
-    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-      <h2 style="color: #0284c7;">Welcome aboard, ${updatedUser.name}!</h2>
-      <p>Your payment has been successfully received, and your training access is now <b>activated</b>.</p>
-      <p>You can now log in to your dashboard to start learning.</p>
-      <br>
-      <p>Happy Learning!<br><b>The EWPP Team</b></p>
-    </div>
-  `;
-  
-  // 🟢 यहाँ 'sendEmail' का इस्तेमाल करें जो आपने OAuth2 के साथ बनाया है
-  await sendEmail(updatedUser.email, 'Welcome to EWPP Training Portal! 🎉', welcomeHtml);
-  
-  console.log(`[SUCCESS] Welcome email sent via OAuth2 to ${updatedUser.email}`);
-} catch (emailErr) {
-  console.error("Welcome email failed:", emailErr);
-}
+      console.log(`=== 🎉 BACKEND VERIFY STEP 4: DB UPDATE SUCCESS ===`);
+      console.log("डेटाबेस से लौटकर आया ताज़ा 'updatedUser' ऑब्जेक्ट:");
+      console.log("ID:", updatedUser._id);
+      console.log("Email:", updatedUser.email);
+      console.log("Actual isPaid state in DB now:", updatedUser.isPaid);
+      console.log("=================================================");
 
-      return res.status(200).json({ success: true, message: "Paid Successfully", user: updatedUser });
+      return res.status(200).json({ 
+        success: true, 
+        message: "Paid Successfully", 
+        user: updatedUser 
+      });
+      
     } else {
-      return res.status(400).json({ success: false, message: "Invalid Signature" });
+      console.error("=== ❌ BACKEND VERIFY ERROR: SIGNATURE MISMATCH ===");
+      return res.status(400).json({ success: false, message: "Invalid Signature Match" });
     }
   } catch (error) {
+    console.error("=== 💥 BACKEND VERIFY CATCH EXCEPTION ===");
     console.error(error);
     res.status(500).json({ success: false, message: "Verification Server Error" });
   }

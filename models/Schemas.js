@@ -33,6 +33,7 @@ const ModuleSchema = new mongoose.Schema({
 // --- 4. USER / PARTNER SCHEMA (सभी पुराने फ़ील्ड्स को सुरक्षित रखते हुए अपडेटेड) ---
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  phone: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }, // हैश किया हुआ पासवर्ड
   role: { type: String, default: 'channel_partner' },

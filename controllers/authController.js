@@ -17,7 +17,7 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({ name, email, password: hashedPassword, phone });
 
     res.status(201).json({ message: 'चैनल पार्टनर का ACCOUNT बन गया है।' });
   } catch (error) {

@@ -27,39 +27,38 @@ const generateInvoice = (user, amount) => {
     const writeStream = fs.createWriteStream(filePath);
     doc.pipe(writeStream);
 
-    // Header: EXOWA Branding
-    // doc.image('logo.png', 50, 45, { width: 50 }); // लोगो की लाइन (logo.png फाइल रखें)
-    doc.fontSize(25).fillColor('#0284c7').text('EXOWA', 110, 55);
-    doc.fontSize(10).fillColor('black').text('Training Portal Invoice', 110, 80);
-    doc.text('Address: Delhi, India', 400, 55, { align: 'right' });
-    doc.text('GST No: 07EXOWA1234A1Z5', 400, 70, { align: 'right' });
-    doc.moveDown();
-
-    doc.strokeColor('#aaaaaa').lineWidth(1).moveTo(50, 110).lineTo(550, 110).stroke();
+    // Header & Info...
+    doc.fontSize(25).fillColor('#0284c7').text('EXOWA', 50, 50);
+    doc.fontSize(10).fillColor('black').text('Training Portal Invoice', 50, 80);
     doc.moveDown(2);
 
-    doc.fontSize(12).text(`Bill To: ${user.name}`);
-    doc.text(`Email: ${user.email}`);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`);
-    doc.moveDown();
+    // --- टेबल बनाने का कोड (Table Structure) ---
+    const tableTop = 200;
+    const itemTop = 225;
+    
+    // हेडर बैकग्राउंड
+    doc.fillColor('#0284c7').rect(50, tableTop, 500, 25).fill();
+    doc.fillColor('white').fontSize(12).text('Description', 60, tableTop + 7);
+    doc.text('Amount', 450, tableTop + 7);
 
-    // Table
-    doc.fillColor('#0284c7').rect(50, 200, 500, 25).fill();
-    doc.fillColor('white').text('Description', 60, 208);
-    doc.text('Amount', 450, 208);
-    doc.fillColor('black').fontSize(12).text('Training Course Fee', 60, 240);
-    doc.text(`₹${amount}`, 450, 240);
-    doc.text('GST (18%): ₹63', 450, 260);
-    doc.fontSize(14).text(`Total: ₹${amount + 63}`, 450, 290, { underline: true });
+    // टेबल की आउटलाइन और वर्टिकल लाइन्स
+    doc.strokeColor('#aaaaaa').lineWidth(1);
+    doc.rect(50, tableTop, 500, 100).stroke(); // बाहरी बॉक्स
+    doc.moveTo(430, tableTop).lineTo(430, tableTop + 100).stroke(); // वर्टिकल लाइन
 
-    // Footer
-    doc.fontSize(10).text('For any queries, contact: support@exowa.com | Care: +91 9999999999', 50, 750, { align: 'center' });
+    // टेबल का कंटेंट
+    doc.fillColor('black').text('Training Course Fee', 60, itemTop);
+    doc.text(`₹${amount}`, 450, itemTop);
+    doc.text('GST (18%): ₹63', 450, itemTop + 20);
+    doc.text(`Total: ₹${amount + 63}`, 450, itemTop + 50, { underline: true });
+
+    // Footer...
+    doc.fontSize(10).text('For any queries: support@exowa.com', 50, 750, { align: 'center' });
     doc.end();
     writeStream.on('finish', () => resolve(filePath));
     writeStream.on('error', reject);
   });
 };
-
 // 2. Email Sending Function (Gmail API)
 const sendWelcomeEmail = async (userEmail, userName, invoicePath) => {
   try {

@@ -31,15 +31,25 @@ const generateInvoice = async (user, amount) => {
   const total = (parseFloat(amount) + parseFloat(gst)).toFixed(2);
 
   const data = {
-    name: user.name || "Valued Customer",
-    email: user.email || "N/A",
-    phone: user.phone || "N/A",
-    invoiceNo: `INV-${Date.now().toString().slice(-6)}`,
-    date: new Date().toLocaleDateString('en-GB'),
-    amount: amount.toFixed(2),
-    tax: gst,
-    total: total
-  };
+    invoiceNo: "INV-1001",
+    date: "28-Jun-2026",
+    dueDate: "05-Jul-2026",
+    customerName: user.name,
+    companyName: user.company || "N/A",
+    address: user.address || "Delhi, India",
+    cityStateZip: "New Delhi - 110001",
+    phone: user.phone,
+    paymentMethod: "UPI / Bank Transfer",
+    customerGst: "XXXXXXXXXXXX",
+    customerPan: "XXXXX1234X",
+    items: [
+        { no: 1, description: "Exowa Training Fee", qty: 1, price: 350, total: 350 }
+    ],
+    subtotal: 350,
+    gstAmount: 63,
+    grandTotal: 413,
+    terms: "• Payment is due within 7 days.<br>• Thank you for choosing Exowa."
+};
 
   const finalHtml = template(data);
   

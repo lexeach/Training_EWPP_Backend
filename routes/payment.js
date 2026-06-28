@@ -7,6 +7,8 @@ const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
+const handlebars = require('handlebars');
+const htmlPdf = require('html-pdf-node');
 
 const User = mongoose.model('User');
 const razorpay = new Razorpay({
@@ -20,46 +22,40 @@ const oauth2Client = new OAuth2(process.env.OAUTH_CLIENT_ID, process.env.OAUTH_C
 oauth2Client.setCredentials({ refresh_token: process.env.OAUTH_REFRESH_TOKEN });
 
 // 1. PDF Generation Function
-const generateInvoice = (user, amount) => {
-  return new Promise((resolve, reject) => {
-    const doc = new PDFDocument({ margin: 50, size: 'A4' });
-    const filePath = `./invoice_${user._id}.pdf`;
-    const writeStream = fs.createWriteStream(filePath);
-    doc.pipe(writeStream);
+const generateInvoice = async (user, amount) => {
+  const templateHtml = fs.readFileSync('./invoice_template.html', 'utf8');
+  const template = handlebars.compile(templateHtml);
 
-    // Header & Info...
-    doc.fontSize(25).fillColor('#0284c7').text('EXOWA', 50, 50);
-    doc.fontSize(10).fillColor('black').text('Training Portal Invoice', 50, 80);
-    doc.moveDown(2);
+  // गणना (Calculations)
+  const gst = (amount * 0.18).toFixed(2);
+  const total = (parseFloat(amount) + parseFloat(gst)).toFixed(2);
 
-    // --- टेबल बनाने का कोड (Table Structure) ---
-    const tableTop = 200;
-    const itemTop = 225;
-    
-    // हेडर बैकग्राउंड
-    doc.fillColor('#0284c7').rect(50, tableTop, 500, 25).fill();
-    doc.fillColor('white').fontSize(12).text('Description', 60, tableTop + 7);
-    doc.text('Amount', 450, tableTop + 7);
+  const data = {
+    name: user.name || "Valued Customer",
+    email: user.email || "N/A",
+    phone: user.phone || "N/A",
+    invoiceNo: `INV-${Date.now().toString().slice(-6)}`,
+    date: new Date().toLocaleDateString('en-GB'),
+    amount: amount.toFixed(2),
+    tax: gst,
+    total: total
+  };
 
-    // टेबल की आउटलाइन और वर्टिकल लाइन्स
-    doc.strokeColor('#aaaaaa').lineWidth(1);
-    doc.rect(50, tableTop, 500, 100).stroke(); // बाहरी बॉक्स
-    doc.moveTo(430, tableTop).lineTo(430, tableTop + 100).stroke(); // वर्टिकल लाइन
-
-    // टेबल का कंटेंट
-    doc.fillColor('black').text('Training Course Fee', 60, itemTop);
-    doc.text(`₹${amount}`, 450, itemTop);
-    doc.text('GST (18%): ₹63', 450, itemTop + 20);
-    doc.text(`Total: ₹${amount + 63}`, 450, itemTop + 50, { underline: true });
-
-    // Footer...
-    doc.fontSize(10).text('For any queries: support@exowa.com', 50, 750, { align: 'center' });
-    doc.end();
-    writeStream.on('finish', () => resolve(filePath));
-    writeStream.on('error', reject);
-  });
-};
-// 2. Email Sending Function (Gmail API)
+  const finalHtml = template(data);
+  
+  // PDF Generation Options
+  const options = { 
+    format: 'A4',
+    printBackground: true,
+    margin: { top: '0px', bottom: '0px' } 
+  };
+  
+  const pdfBuffer = await htmlPdf.generatePdf({ content: finalHtml }, options);
+  const filePath = `./invoice_${user._id}.pdf`;
+  fs.writeFileSync(filePath, pdfBuffer);
+  
+  return filePath;
+};// 2. Email Sending Function (Gmail API)
 const sendWelcomeEmail = async (userEmail, userName, invoicePath) => {
   try {
     const accessToken = await oauth2Client.getAccessToken();

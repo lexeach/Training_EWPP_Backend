@@ -18,28 +18,34 @@ const oauth2Client = new OAuth2(
 );
 oauth2Client.setCredentials({ refresh_token: process.env.OAUTH_REFRESH_TOKEN });
 
+// पुराने nodemailer transporter को हटाकर सीधे Gmail API का उपयोग करें
 const sendWelcomeEmail = async (userEmail, userName) => {
   try {
     const accessToken = await oauth2Client.getAccessToken();
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: process.env.EMAIL_USER,
-        clientId: process.env.OAUTH_CLIENT_ID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-        accessToken: accessToken.token
-      }
+    
+    // 🟢 यहाँ Gmail API के जरिए ईमेल भेजने का तरीका अपनाएं
+    const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+    
+    const subject = "Welcome to EWPP Training Portal! 🎉";
+    const body = `Welcome, ${userName}! Your payment was successful and your account is now active.`;
+    
+    const message = [
+      `To: ${userEmail}`,
+      'Content-Type: text/html; charset=utf-8',
+      'MIME-Version: 1.0',
+      `Subject: ${subject}`,
+      '',
+      body
+    ].join('\n');
+
+    const encodedMessage = Buffer.from(message).toString('base64').replace(/\+/g, '-').replace(/\//g, '_');
+
+    await gmail.users.messages.send({
+      userId: 'me',
+      requestBody: { raw: encodedMessage }
     });
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: userEmail,
-      subject: "Welcome to EWPP Training Portal! 🎉",
-      html: `<h2>Welcome, ${userName}!</h2><p>Your payment is successful and your account is now active.</p>`
-    });
-    console.log("[EMAIL LOG] Welcome email sent successfully to:", userEmail);
+    console.log("[EMAIL LOG] Welcome email sent successfully via Gmail API to:", userEmail);
   } catch (err) {
     console.error("[EMAIL ERROR] Background email error:", err);
   }

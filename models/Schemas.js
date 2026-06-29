@@ -64,5 +64,10 @@ const UserSchema = new mongoose.Schema({
 
 const Module = mongoose.model('Module', ModuleSchema);
 const User = mongoose.model('User', UserSchema);
+const counterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 1000 }
+});
 
-module.exports = { Module, User };
+const Counter = mongoose.model('Counter', counterSchema);
+module.exports = { Module, User, Counter };

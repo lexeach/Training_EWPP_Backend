@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { User, Counter } = require('../models/Schemas'); // सही पाथ का उपयोग करें
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
@@ -21,18 +22,30 @@ const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(process.env.OAUTH_CLIENT_ID, process.env.OAUTH_CLIENT_SECRET, "https://developers.google.com/oauthplayground");
 oauth2Client.setCredentials({ refresh_token: process.env.OAUTH_REFRESH_TOKEN });
 
+
+const getNextInvoiceNumber = async () => {
+  const counter = await Counter.findByIdAndUpdate(
+    { _id: 'invoiceNumber' },
+    { $inc: { seq: 1 } },
+    { new: true, upsert: true }
+  );
+  return `INV-${counter.seq}`;
+};
+
 // 1. PDF Generation Function
 const generateInvoice = async (user, amount) => {
+  const invoiceNo = await getNextInvoiceNumber(); // यहाँ से यूनिक नंबर मिलेगा
+  
   const templateHtml = fs.readFileSync('./invoice_template.html', 'utf8');
   const template = handlebars.compile(templateHtml);
 
-  // गणना (Calculations)
+  // गणना
   const gst = (amount * 0.18).toFixed(2);
   const total = (parseFloat(amount) + parseFloat(gst)).toFixed(2);
 
   const data = {
-    invoiceNo: "INV-1001",
-    date: "28-Jun-2026",
+    invoiceNo: invoiceNo, // यहाँ डायनामिक नंबर सेट हो गया
+    date: new Date().toLocaleDateString('en-GB'),
     dueDate: "05-Jul-2026",
     customerName: user.name,
     companyName: user.company || "N/A",
@@ -112,6 +125,8 @@ router.post('/verify', async (req, res) => {
 
   if (expectedSign === razorpay_signature) {
     const updatedUser = await User.findByIdAndUpdate(userId, { isPaid: true }, { new: true });
+
+
     
     // Generate Invoice & Email
     const invoicePath = await generateInvoice(updatedUser, 350);

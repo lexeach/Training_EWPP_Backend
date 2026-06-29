@@ -95,6 +95,28 @@ const sendWelcomeEmail = async (userEmail, userName, invoicePath) => {
       `--${boundary}`,
       "Content-Type: text/html; charset=utf-8",
       "",
+
+
+
+   <h2 style="color: #2d3436;">You're In!</h2>
+      </div>
+      <p style="color: #636e72; line-height: 1.6;">Hi <b>${userName}</b>, we are thrilled to have you on board! Your payment of ₹350 is confirmed.</p>
+      <ul style="color: #2d3436; padding-left: 20px;">
+        <li>✅ Access to all training videos</li>
+        <li>✅ Progress tracking</li>
+        <li>✅ Certificate on completion</li>
+      </ul>
+      <p style="text-align: center; font-weight: bold; color: #0284c7;">Let's start your training today!</p>
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="https://your-portal-link.com" style="background: #00b894; color: white; padding: 10px 20px; text-decoration: none; border-radius: 20px;">Access Dashboard</a>
+      </div>
+    </div>
+  </div>
+      
+
+
+
+      
       `<h2>Hello ${userName},</h2><p>Your payment is successful. Find your invoice attached.</p>`,
       `--${boundary}`,
       "Content-Type: application/pdf",

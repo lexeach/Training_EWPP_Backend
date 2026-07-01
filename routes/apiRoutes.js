@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const { User } = require('../models/Schemas');
+//const { User } = require('../models/Schemas');
 const { registerUser, loginUser, manualApproveUser, getAllUsers } = require('../controllers/authController');
 // 🎯controllers से इम्पोर्ट्स
 const { getModules, updateProgress, submitQuiz } = require('../controllers/trainingController');

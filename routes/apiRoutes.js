@@ -2,11 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-//const { User } = require('../models/Schemas');
+const { User } = require('../models/Schemas');
 const { registerUser, loginUser, manualApproveUser, getAllUsers } = require('../controllers/authController');
 // 🎯controllers से इम्पोर्ट्स
 const { getModules, updateProgress, submitQuiz } = require('../controllers/trainingController');
-const { User, Module } = require('../models/Schemas');
 
 // --- AUTH MIDDLEWARE (टोकन वेरीफाई करने के लिए) ---
 const protect = async (req, res, next) => {
@@ -26,24 +25,6 @@ const protect = async (req, res, next) => {
 
 // --- ROUTES ---
 
-// [FREEMIUM LOGIC] वीडियो एक्सेस चेक करने का रूट
-
-router.get('/video-access/:videoId', async (req, res) => {
-    const video = await Video.findById(req.params.videoId);
-    const user = await User.findById(req.user.id);
-
-    // Agar video 'free' flag ke sath true hai, toh access de dein
-    if (video.isFree === true) {
-        return res.json({ access: true });
-    }
-
-    // Agar free nahi hai, toh account status check karein
-    if (user.accountStatus === 'Paid') {
-        return res.json({ access: true });
-    }
-
-    res.json({ access: false });
-});
 // 🔐 Auth & Admin Routes
 router.post('/auth/register', registerUser);
 router.post('/auth/login', loginUser);

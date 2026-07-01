@@ -27,7 +27,7 @@ const protect = async (req, res, next) => {
 // --- ROUTES ---
 
 // [FREEMIUM LOGIC] वीडियो एक्सेस चेक करने का रूट
-ro
+
 router.get('/video-access/:videoId', protect, async (req, res) => {
   const { videoId } = req.params;
   const user = req.user; // protect मिडलवेयर से मिला

@@ -6,6 +6,7 @@ const { User } = require('../models/Schemas');
 const { registerUser, loginUser, manualApproveUser, getAllUsers } = require('../controllers/authController');
 // 🎯controllers से इम्पोर्ट्स
 const { getModules, updateProgress, submitQuiz } = require('../controllers/trainingController');
+const { User, Module } = require('../models/Schemas');
 
 // --- AUTH MIDDLEWARE (टोकन वेरीफाई करने के लिए) ---
 const protect = async (req, res, next) => {
@@ -24,6 +25,26 @@ const protect = async (req, res, next) => {
 };
 
 // --- ROUTES ---
+
+// [FREEMIUM LOGIC] वीडियो एक्सेस चेक करने का रूट
+ro
+router.get('/video-access/:videoId', protect, async (req, res) => {
+  const { videoId } = req.params;
+  const user = req.user; // protect मिडलवेयर से मिला
+
+  // अगर पेड है, तो सब एक्सेस दें
+  if (user.isPaid) return res.json({ access: true });
+
+  // अगर पेड नहीं है, तो चेक करें कि क्या यह शुरुआती 5 फ्री वीडियो में से है
+  // आप अपने डेटाबेस के हिसाब से IDs यहाँ रखें
+  const freeVideoIds = ["v1", "v2", "v3", "v4", "v5"]; 
+  
+  if (freeVideoIds.includes(videoId)) {
+    return res.json({ access: true });
+  }
+
+  res.status(403).json({ access: false, message: "कृपया पूरा कोर्स एक्सेस करने के लिए पेमेंट करें।" });
+});
 
 // 🔐 Auth & Admin Routes
 router.post('/auth/register', registerUser);

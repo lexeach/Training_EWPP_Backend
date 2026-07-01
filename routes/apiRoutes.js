@@ -28,24 +28,22 @@ const protect = async (req, res, next) => {
 
 // [FREEMIUM LOGIC] वीडियो एक्सेस चेक करने का रूट
 
-router.get('/video-access/:videoId', protect, async (req, res) => {
-  const { videoId } = req.params;
-  const user = req.user; // protect मिडलवेयर से मिला
+router.get('/video-access/:videoId', async (req, res) => {
+    const video = await Video.findById(req.params.videoId);
+    const user = await User.findById(req.user.id);
 
-  // अगर पेड है, तो सब एक्सेस दें
-  if (user.isPaid) return res.json({ access: true });
+    // Agar video 'free' flag ke sath true hai, toh access de dein
+    if (video.isFree === true) {
+        return res.json({ access: true });
+    }
 
-  // अगर पेड नहीं है, तो चेक करें कि क्या यह शुरुआती 5 फ्री वीडियो में से है
-  // आप अपने डेटाबेस के हिसाब से IDs यहाँ रखें
-  const freeVideoIds = ["v1", "v2", "v3", "v4", "v5"]; 
-  
-  if (freeVideoIds.includes(videoId)) {
-    return res.json({ access: true });
-  }
+    // Agar free nahi hai, toh account status check karein
+    if (user.accountStatus === 'Paid') {
+        return res.json({ access: true });
+    }
 
-  res.status(403).json({ access: false, message: "कृपया पूरा कोर्स एक्सेस करने के लिए पेमेंट करें।" });
+    res.json({ access: false });
 });
-
 // 🔐 Auth & Admin Routes
 router.post('/auth/register', registerUser);
 router.post('/auth/login', loginUser);
